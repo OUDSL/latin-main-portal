@@ -432,6 +432,19 @@ function showResult(url){
         $("#myModal").modal('show');
     });
 }
+
+function showMetaResult(tag){
+    //myModalLabel -->title
+    url="https://dev.libraries.ou.edu/api-dsl/data_store/data/congressional/hearings/.json?query={'filter':{'TAG':'"+tag+"'}}"
+    $.getJSON(url, function(data){
+        json_data = JSON.stringify(data.results[0],null, 4);
+        $("#myMetabody").empty();
+        $("#myMetabody").html(json_data);
+        $("#myMetabody").urlize();
+        $("#metaModel").modal('show');
+    });
+}
+
 jQuery.fn.urlize = function() {
     if (this.length > 0) {
         this.each(function(i, obj){
