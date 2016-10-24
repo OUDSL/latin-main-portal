@@ -269,7 +269,7 @@ function content_lines(val,lines,templ,html){
 	    }
 
 	});
-	$("#" + html).append(templ({"PAGE":"page"+page,"LINK":"https://gpo.gov/fdsys/pkg/"+val._source.TAG+"/html/"+val._source.TAG+".htm","TAG":val._source.TAG,"DATA":temp_data,"TITLE":val._source.TITLE,"HELD_DATE":val._source.HELD_DATE}))
+	$("#" + html).append(templ({"PAGE":"page"+page,"LINK":"https://gpo.gov/fdsys/pkg/"+val._source.TAG+"/html/"+val._source.TAG+".htm","TAG":val._source.TAG,"DATA":temp_data,"TITLE":val._source.TITLE,"HELD_DATE":val._source.DATE}))
         $("#" + html).highlight($('#search').val().replace(/\"/g," ").trim().split(" "));
         //This has to be here because you can not put event when item has not been placed on the page
         $('.csv').on("click",function(){
