@@ -1,3 +1,4 @@
+var result=[]
 $(function() {
     //Customize by setting base_url to cybercom/api docker application
     base_url = "https://dev.libraries.ou.edu/api-dsl";
@@ -7,7 +8,7 @@ $(function() {
     user_task_url = base_url + "/queue/usertasks/.json?page_size=10";
     user_url = base_url + "/user/?format=json";
     prevlink=null;nextlink=null;page=0;page_size=50;searchterm="";total_pages=0;
-    output=[];result=[];guest=true;
+    output=[];guest=true;
     //check auth
     set_auth(base_url,login_url);
     $("#aprofile").click(function(){activaTab('profile')})
@@ -606,7 +607,7 @@ function filterhide(input)
     for (x = 0; x < origLen; x++) {
         found = undefined;
         for (y = 0; y < newArr.length; y++) {
-            if (origArr[x].tag === newArr[y].tag) {
+            if (origArr[x].data === newArr[y].data) {
                 found = true;
                 break;
             }
@@ -617,7 +618,6 @@ function filterhide(input)
     }
     return newArr;
 }
-
 
 
 
