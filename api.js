@@ -72,6 +72,48 @@ $(function() {
             filtershow("shrg");
         }
     });
+    $(sall).on("click",function()
+    {
+        $(".csv").prop('checked', $(this).prop('checked'));
+        var tags = $("tr td.tag");
+        var tag = [];
+        var data= [];
+        var inputs = [];
+
+        $(tags).each(function()
+        {
+            tag.push($(this).text().trim());
+        });
+        g_tag = tag;
+        // console.log(tag);
+
+        $("tr td.data").each(function()
+        {
+            data.push($(this).text().trim());
+        });
+        g_data = data;
+        var temp = $(".csv");
+
+        $(temp).each(function()
+        {
+            inputs.push($(this)[0]);
+        });
+        g_inputs = inputs;
+        var tags = $("tr td.tag");
+        var alldata = [];
+        for(i=0; i<tags.length; i++){
+            alldata.push({tag: g_tag[i], data: g_data[i], myinput: g_inputs[i]})
+        }
+        for(i=0; i<alldata.length; i++){
+            if(alldata[i].myinput.checked) {
+                output.push(alldata[i]);
+            }
+        }
+        for(i=0;i<output.length;i++)
+        {
+            result.push({tag:output[i].tag,data:output[i].data});
+        }
+    });
    
    var g_tag=[];
    var g_data=[];
@@ -103,6 +145,8 @@ $(function() {
     g_inputs = inputs;
     // console.log(g_inputs);
 });
+    
+    
 
     $("#final").on("click",function()
     {
