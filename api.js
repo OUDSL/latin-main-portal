@@ -209,9 +209,9 @@ function submit_task(){
         lines_above_below = parseInt($('#contextlines').val());
      }
     //url to submit task
-    url = base_url + "/queue/run/dslq.tasks.tasks.search_stats/"
+    url = base_url + "/queue/run/dslq.tasks.tasks.search_main_stats/"
     //Set task Data to submit 
-    task_name = "dslq.tasks.tasks.search_stats"
+    task_name = "dslq.tasks.tasks.search_main_stats"
     params = ["congressional","hearings",query]
     task_data = {"function": task_name,"queue": "celery","args":params,"kwargs":{"context_pages":lines_above_below},"tags":["query="+ searchterm,"query-type=" + query_type ]};
     console.log("fired")
