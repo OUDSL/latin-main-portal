@@ -1,4 +1,7 @@
 var result=[]
+var fromDate=""
+var toDate=""
+var filterD=""
 $(function() {
     //Customize by setting base_url to cybercom/api docker application
     base_url = "https://dev.libraries.ou.edu/api-dsl";
@@ -144,6 +147,7 @@ $(function() {
     });
     g_inputs = inputs;
     // console.log(g_inputs);
+    
 });
     
     
@@ -155,6 +159,18 @@ $(function() {
 
     });
 
+    $("#dRange").on("click",function(){
+        if(this.checked)
+        {
+            fromDate = $("#fromDate").val();
+            toDate = $("#toDate").val();
+            filterD=",'filter':{'range':{'DATE':{'lte':'"+toDate+"','gte':'"+fromDate+"'}}}";
+        }
+        else
+        {
+            filterD="";
+        }
+    });
 });//End of Document Ready
 
 function load_es_data(){
@@ -241,16 +257,26 @@ $.postJSON = function(url, data, callback,fail) {
 
 function search(term){
     checked_value=$('input[name=optradio]:checked').val()
+        if($("#dRange").prop('checked'))
+        {
+            fromDate = $("#fromDate").val();
+            toDate = $("#toDate").val();
+            filterD=",'filter':{'range':{'DATE':{'lte':'"+toDate+"','gte':'"+fromDate+"'}}}";
+        }
+        else
+        {
+            filterD="";
+        }
     //console.log(term)
     if (checked_value=="0"){
         url = base_url + "/es/data/congressional/hearings/.json?query={'query':{'query_string':{'query':'" + term 
-        url = url + "'}},'aggs':{'hearings_count':{'cardinality':{'field':'TAG'}}}}"
+        url = url + "'}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'TAG'}}}}"
     }else if (checked_value=="1"){
         url = base_url + "/es/data/congressional/hearings/.json?query={'query':{'match':{'DATA':{'query':'" + term 
-        url = url + "','operator':'and'}}},'aggs':{'hearings_count':{'cardinality':{'field':'TAG'}}}}"
+        url = url + "','operator':'and'}}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'TAG'}}}}"
     }else{
         url = base_url + "/es/data/congressional/hearings/.json?query={'query':{'match_phrase':{'DATA':{'query':'" + term 
-        url = url + "','type':'phrase'}}},'aggs':{'hearings_count':{'cardinality':{'field':'TAG'}}}}"
+        url = url + "','type':'phrase'}}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'TAG'}}}}"
     }
      //need to add a user element to assign the lines above and below
      if ($('#contextlines').val()==""){

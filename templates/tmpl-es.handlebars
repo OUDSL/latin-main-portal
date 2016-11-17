@@ -7,7 +7,24 @@
 <div class="form-control" style="margin-bottom:30px;">
      <label class="radio-inline"><input type="radio" class="optradio" name="optradio" value="0" checked><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#query-string-syntax" target="_blank">Query String</a></label>
     <label class="radio-inline"><input type="radio" class="optradio" name="optradio" value="1"><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html" target="_blank">Match (AND)</a></label>
-    <label class="radio-inline"><input type="radio" class="optradio" name="optradio" value="2"><a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/phrase-matching.html"target="_blank">Match Phrase</a></label> 
+    <label class="radio-inline"><input type="radio" class="optradio" name="optradio" value="2"><a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/phrase-matching.html"target="_blank">Match Phrase</a></label>
+    <label class="radio-inline" style="padding-right:2px"><input type="checkbox" id="dRange"></label><label class="radio-inline" style="padding-left:0px;">
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-primary dropdown-toggle" style="padding:2px 6px;" type="button" data-toggle="dropdown">Date Range Search
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu" style="
+                      margin-left: 16px;
+                      margin-right: 16px;
+                      padding: 20px 0px;
+                      width: 310px !important;">
+                      <li><div class="input-group input-daterange">
+                    <input type="text" id="fromDate" class="form-control" value="2012-04-05">
+                    <span class="input-group-addon">to</span>
+                    <input type="text" id="toDate" class="form-control" value="2012-04-19">
+                  </div></li>
+                    </ul>
+                  </div>
+                  </label>
     <div class="checkbox">
         <label><input id="hhrgbox" type="checkbox" value="hhrg">Filter House</label>
         <label><input id="shrgbox" type="checkbox" value="shrg">Filter Senate</label>
