@@ -150,7 +150,8 @@ $(function() {
     
 });
     
-    
+    //To get Current Date in toDate input box for Date range search
+    $("#toDate").val(getCurrentDate());
 
     $("#final").on("click",function()
     {
@@ -164,7 +165,17 @@ $(function() {
         {
             fromDate = $("#fromDate").val();
             toDate = $("#toDate").val();
+            if(isValidDate(fromDate) && isValidDate(toDate))
+            {
             filterD=",'filter':{'range':{'DATE':{'lte':'"+toDate+"','gte':'"+fromDate+"'}}}";
+            }
+            else
+            {
+                alert("Please make sure dateformat is in -- [yyyy-mm-dd] OR [yyyy]");
+                $("#fromDate").val("");
+                $("#toDate").val("");
+                $("dRange").trigger('click');
+            }
         }
         else
         {
@@ -261,7 +272,18 @@ function search(term){
         {
             fromDate = $("#fromDate").val();
             toDate = $("#toDate").val();
+            if(isValidDate(fromDate) && isValidDate(toDate))
+            {
             filterD=",'filter':{'range':{'DATE':{'lte':'"+toDate+"','gte':'"+fromDate+"'}}}";
+            }
+            else
+            {
+                alert("Please make sure dateformat is in -- [yyyy-mm-dd] OR [yyyy]");
+                alert("Search will be resumed with out Date range search!!")
+                $("#fromDate").val("");
+                $("#toDate").val("");
+                $("dRange").trigger('click');
+            }
         }
         else
         {
@@ -695,5 +717,25 @@ function filterhide(input)
     return newArr;
 }
 
+function isValidDate(dateString) {
+    if(dateString.length == 10)
+    {
+        var regEx = /^\d{4}-\d{2}-\d{2}$/;
+    }
+    else if(dateString.length == 4)
+    {
+        var regEx = /^\d{4}$/;
+    }
+    else
+    {
+        return false;
+    }
+  return dateString.match(regEx) != null;
+}
+
+function getCurrentDate()
+{
+    return new Date().toISOString().slice(0,10);
+}
 
 
