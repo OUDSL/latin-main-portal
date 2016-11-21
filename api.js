@@ -313,16 +313,16 @@ function search(term){
     filter_check_value=$('input[name=fradio]:checked').val()
     if(filter_check_value=="3")
     {
-        term=term+"AND (CHAMBER:HOUSE)";
+        term=term+" AND (CHAMBER:HOUSE)";
     }
     else if(filter_check_value=="4")
     {
-        term=term+"AND (CHAMBER:SENATE)"
+        term=term+" AND (CHAMBER:SENATE)"
     }
 
     else if(filter_check_value=="5")
     {
-        term=term+"AND (CHAMBER:JOINT)"
+        term=term+" AND (CHAMBER:JOINT)"
     }
 
     //console.log(term)
