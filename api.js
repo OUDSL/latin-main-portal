@@ -36,20 +36,6 @@ $(function() {
             $(".checkbox").show();
             $(".dateRange").show();
         });
-    $("#advs").click(function()
-        {
-            if(this.checked)
-            {
-                $("#advS").removeAttr("disabled");
-            }
-            else
-            {
-            $("#advS").prop('disabled', true);
-            $(".checkbox").hide();
-            $(".dateRange").hide();
-            }
-        });
-
 
     $(hhrgbox).change(function()
     {
@@ -228,6 +214,8 @@ function submit_task(){
         //$('#user').show();
         //load_task_history(user_task_url);
     }
+
+
     //Check query and set query string and query_type
     checked_value=$('input[name=optradio]:checked').val()
     if (checked_value=="0"){
@@ -301,6 +289,23 @@ function search(term){
         {
             filterD="";
         }
+
+    //Get the filtered value
+    filter_check_value=$('input[name=fradio]:checked').val()
+    if(filter_check_value=="3")
+    {
+        term=term+"AND (CHAMBER:HOUSE)";
+    }
+    else if(filter_check_value=="4")
+    {
+        term=term+"AND (CHAMBER:SENATE)"
+    }
+
+    else if(filter_check_value=="5")
+    {
+        term=term+"AND (CHAMBER:JOINT)"
+    }
+
     //console.log(term)
     if (checked_value=="0"){
         url = base_url + "/es/data/congressional/hearings/.json?query={'query':{'query_string':{'query':'" + term 
