@@ -35,6 +35,23 @@ $(function() {
         {
             $(".checkbox").show();
             $(".dateRange").show();
+            $("#fromDate").prop( "disabled", true ); 
+            $("#toDate").prop( "disabled", true ); 
+        });
+
+    $("#dRange").change(function()
+        {
+            if(this.checked)
+            {
+                $("#fromDate").prop( "disabled", false ); 
+                $("#toDate").prop( "disabled", false );    
+            }
+            else
+            {
+                filterD="";
+                $("#fromDate").prop( "disabled", true ); 
+                $("#toDate").prop( "disabled", true ); 
+            }
         });
 
     $(hhrgbox).change(function()
@@ -165,21 +182,23 @@ $(function() {
 
     });
 
-    $("#fromDate").prop( "disabled", true ); 
-    $("#toDate").prop( "disabled", true ); 
-    $("#dRange").on("click",function(){
-        if(this.checked)
-        {
-            $("#fromDate").prop( "disabled", false ); 
-            $("#toDate").prop( "disabled", false );    
-        }
-        else
-        {
-            filterD="";
-            $("#fromDate").prop( "disabled", true ); 
-            $("#toDate").prop( "disabled", true ); 
-        }
-    });
+
+    // $(dRange).on("click",function(){
+    //     alert("HI")
+    //     if(this.checked)
+    //     {
+    //         alert("HI");
+    //         $("#fromDate").prop( "disabled", false ); 
+    //         $("#toDate").prop( "disabled", false );    
+    //     }
+    //     else
+    //     {
+    //         filterD="";
+    //         $("#fromDate").prop( "disabled", true ); 
+    //         $("#toDate").prop( "disabled", true ); 
+    //     }
+    // });
+
 });//End of Document Ready
 
 function load_es_data(){
