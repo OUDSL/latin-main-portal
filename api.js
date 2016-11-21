@@ -31,6 +31,25 @@ $(function() {
     $('#myTab').hide()
     load_es_data();
 
+    $("#advS").click(function()
+        {
+            $(".checkbox").show();
+            $(".dateRange").show();
+        });
+    $("#advs").click(function()
+        {
+            if(this.checked)
+            {
+                $("#advS").removeAttr("disabled");
+            }
+            else
+            {
+            $("#advS").prop('disabled', true);
+            $(".checkbox").hide();
+            $(".dateRange").hide();
+            }
+        });
+
 
     $(hhrgbox).change(function()
     {
@@ -150,8 +169,8 @@ $(function() {
     
 });
     
-    //To get Current Date in toDate input box for Date range search
-    $("#toDate").val(getCurrentDate());
+    // //To get Current Date in toDate input box for Date range search
+    // $("#toDate").val(getCurrentDate());
 
     $("#final").on("click",function()
     {
@@ -160,26 +179,19 @@ $(function() {
 
     });
 
+    $("#fromDate").prop( "disabled", true ); 
+    $("#toDate").prop( "disabled", true ); 
     $("#dRange").on("click",function(){
         if(this.checked)
         {
-            fromDate = $("#fromDate").val();
-            toDate = $("#toDate").val();
-            if(isValidDate(fromDate) && isValidDate(toDate))
-            {
-            filterD=",'filter':{'range':{'DATE':{'lte':'"+toDate+"','gte':'"+fromDate+"'}}}";
-            }
-            else
-            {
-                alert("Please make sure dateformat is in -- [yyyy-mm-dd] OR [yyyy]");
-                $("#fromDate").val("");
-                $("#toDate").val("");
-                $("dRange").trigger('click');
-            }
+            $("#fromDate").prop( "disabled", false ); 
+            $("#toDate").prop( "disabled", false );    
         }
         else
         {
             filterD="";
+            $("#fromDate").prop( "disabled", true ); 
+            $("#toDate").prop( "disabled", true ); 
         }
     });
 });//End of Document Ready
