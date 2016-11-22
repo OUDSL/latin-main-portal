@@ -2,6 +2,8 @@ var result=[]
 var fromDate=""
 var toDate=""
 var filterD=""
+var templateFilter=""
+var f = []
 $(function() {
     //Customize by setting base_url to cybercom/api docker application
     base_url = "https://dev.libraries.ou.edu/api-dsl";
@@ -30,6 +32,47 @@ $(function() {
     //$('#user').hide()
     $('#myTab').hide()
     load_es_data();
+
+    $("#hf").change(function()
+        {
+        if(this.checked)
+        {
+            templateFilter = "{'match': {'CHAMBER':{'query':'HOUSE'}}}";
+            f.push(templateFilter);
+            console.log(f);
+            filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{}}}"
+        }
+        else
+        {
+            f = removeElement(f,"{'match': {'CHAMBER':{'query':'HOUSE'}}}");
+        }});
+    $("#sf").click(function()
+        {
+            if(this.checked)
+            {templateFilter = "{'match': {'CHAMBER':{'query':'SENATE'}}}";
+            f.push(templateFilter);
+            console.log(f);
+            filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{}}}"
+        }
+        else
+        {
+            f = removeElement(f,"{'match': {'CHAMBER':{'query':'SENATE'}}}");
+        }
+        });
+    $("#jf").click(function()
+        {
+            if(this.checked)
+            {
+                templateFilter = "{'match': {'CHAMBER':{'query':'JOINT'}}}";
+                f.push(templateFilter);
+                console.log(f)
+                filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{}}}"
+            }    
+            else
+            {
+                f = removeElement(f,"{'match': {'CHAMBER':{'query':'JOINT'}}}");
+            }
+        });
 
     $("#advS").click(function()
         {
@@ -293,7 +336,8 @@ function search(term){
             toDate = $("#toDate").val();
             if(isValidDate(fromDate) && isValidDate(toDate))
             {
-            filterD=",'filter':{'range':{'DATE':{'lte':'"+toDate+"','gte':'"+fromDate+"'}}}";
+            rangeDate="'range':{'DATE':{'lte':'"+toDate+"','gte':'"+fromDate+"'}}";
+            filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{"+rangeDate+"}}}"
             }
             else
             {
@@ -306,24 +350,24 @@ function search(term){
         }
         else
         {
-            filterD="";
+            filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{}}}"
         }
 
-    //Get the filtered value
-    filter_check_value=$('input[name=fradio]:checked').val()
-    if(filter_check_value=="3")
-    {
-        term=term+" AND (CHAMBER:HOUSE)";
-    }
-    else if(filter_check_value=="4")
-    {
-        term=term+" AND (CHAMBER:SENATE)"
-    }
+    // //Get the filtered value
+    // filter_check_value=$('input[name=fradio]:checked').val()
+    // if(filter_check_value=="3")
+    // {
+    //     term=term+" AND (CHAMBER:HOUSE)";
+    // }
+    // else if(filter_check_value=="4")
+    // {
+    //     term=term+" AND (CHAMBER:SENATE)"
+    // }
 
-    else if(filter_check_value=="5")
-    {
-        term=term+" AND (CHAMBER:JOINT)"
-    }
+    // else if(filter_check_value=="5")
+    // {
+    //     term=term+" AND (CHAMBER:JOINT)"
+    // }
 
     //console.log(term)
     if (checked_value=="0"){
@@ -753,6 +797,15 @@ function filterhide(input)
     return newArr;
 }
 
+    function removeDups(list)
+    {
+        var result = [];
+      $.each(list, function(i, e) {
+        if ($.inArray(e, result) == -1) result.push(e);
+      });
+      return result;
+    }
+
 function isValidDate(dateString) {
     if(dateString.length == 10)
     {
@@ -768,6 +821,17 @@ function isValidDate(dateString) {
     }
   return dateString.match(regEx) != null;
 }
+
+    function removeElement(origArr,value)
+    {
+        origArr = removeDups(origArr);
+        var index = origArr.indexOf(value);
+        if(index > -1)
+        {
+            origArr.splice(index,1)
+        }
+        return origArr;
+    }
 
 function getCurrentDate()
 {
