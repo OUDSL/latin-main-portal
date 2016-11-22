@@ -53,50 +53,6 @@ $(function() {
                 $("#toDate").prop( "disabled", true ); 
             }
         });
-
-    $(hhrgbox).change(function()
-    {
-        if(this.checked)
-        {
-            filterhide("shrg");
-            filterhide("jhrg");
-        }
-
-        else
-        {
-            filtershow("shrg");
-            filtershow("jhrg");
-        }
-    });
-
-    $(shrgbox).change(function()
-    {
-        if(this.checked)
-        {
-            filterhide("hhrg");
-            filterhide("jhrg");
-        }
-
-        else
-        {
-            filtershow("hhrg");
-            filtershow("jhrg");
-        }
-    });
-    $(jhrgbox).change(function()
-    {
-        if(this.checked)
-        {
-            filterhide("hhrg");
-            filterhide("shrg");
-        }
-
-        else
-        {
-            filtershow("hhrg");
-            filtershow("shrg");
-        }
-    });
     $(sall).on("click",function()
     {
         $(".csv").prop('checked', $(this).prop('checked'));
@@ -171,6 +127,50 @@ $(function() {
     // console.log(g_inputs);
     
 });
+
+    $(hhrgbox).change(function()
+    {
+        if(this.checked)
+        {
+            filterhide("shrg");
+            filterhide("jhrg");
+        }
+
+        else
+        {
+            filtershow("shrg");
+            filtershow("jhrg");
+        }
+    });
+
+    $(shrgbox).change(function()
+    {
+        if(this.checked)
+        {
+            filterhide("hhrg");
+            filterhide("jhrg");
+        }
+
+        else
+        {
+            filtershow("hhrg");
+            filtershow("jhrg");
+        }
+    });
+    $(jhrgbox).change(function()
+    {
+        if(this.checked)
+        {
+            filterhide("hhrg");
+            filterhide("shrg");
+        }
+
+        else
+        {
+            filtershow("hhrg");
+            filtershow("shrg");
+        }
+    });
     
     // //To get Current Date in toDate input box for Date range search
     // $("#toDate").val(getCurrentDate());
