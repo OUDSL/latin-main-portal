@@ -33,6 +33,7 @@ $(function() {
     $('#myTab').hide()
     load_es_data();
 
+
     $("#hf").change(function()
         {
         if(this.checked)
@@ -73,13 +74,12 @@ $(function() {
                 f = removeElement(f,"{'match': {'CHAMBER':{'query':'JOINT'}}}");
             }
         });
-
     $("#advS").click(function()
         {
-            $(".checkbox").show();
-            $(".dateRange").show();
-            $("#fromDate").prop( "disabled", true ); 
-            $("#toDate").prop( "disabled", true ); 
+            $(".checkbox").toggle();
+            $(".dateRange").toggle();
+            //$("#fromDate").prop( "disabled", true ); 
+            //$("#toDate").prop( "disabled", true ); 
         });
 
     $("#dRange").change(function()
@@ -250,6 +250,9 @@ function load_es_data(){
     tr_tmpl=Handlebars.templates['tmpl-tres']
     $('#home').append(template({}))
     $('#gstat').click(function(){submit_task();});
+    //initial disable of datepicker
+    $("#fromDate").prop( "disabled", true );
+    $("#toDate").prop( "disabled", true );
     $('#submitSearch').click(function(){
         page=0;total_pages=0;
         $('#paginate-div').empty();
