@@ -1,9 +1,3 @@
-var result=[]
-var fromDate=""
-var toDate=""
-var filterD=""
-var templateFilter=""
-var f = []
 $(function() {
     //Customize by setting base_url to cybercom/api docker application
     base_url = "https://dev.libraries.ou.edu/api-dsl";
@@ -13,6 +7,8 @@ $(function() {
     user_task_url = base_url + "/queue/usertasks/.json?page_size=10";
     user_url = base_url + "/user/?format=json";
     prevlink=null;nextlink=null;page=0;page_size=50;searchterm="";total_pages=0;
+    //filter options and Date Range variables
+    fromDate="";toDate="";filterD="";templateFilter="";result=[];f = [];
     output=[];guest=true;
     //check auth
     set_auth(base_url,login_url);
@@ -139,108 +135,48 @@ $(function() {
         }
     });
    
-   var g_tag=[];
-   var g_data=[];
-   var g_inputs=[];
+    var g_tag=[];
+    var g_data=[];
+    var g_inputs=[];
     $("#sall").click(function () {
-    var tags = $("tr td.tag");
-    var tag = [];
-    var data= [];
-    var inputs = [];
+        var tags = $("tr td.tag");
+        var tag = [];
+        var data= [];
+        var inputs = [];
 
-    $(tags).each(function()
-    {
-        tag.push($(this).text().trim());
-    });
-    g_tag = tag;
-    // console.log(tag);
+        $(tags).each(function()
+        {
+            tag.push($(this).text().trim());
+        });
+        g_tag = tag;
+        // console.log(tag);
 
-    $("tr td.data").each(function()
-    {
-        data.push($(this).text().trim());
-    });
-    g_data = data;
-    var temp = $(".csv");
+        $("tr td.data").each(function()
+        {
+            data.push($(this).text().trim());
+        });
+        g_data = data;
+        var temp = $(".csv");
 
-    $(temp).each(function()
-    {
-        inputs.push($(this)[0]);
-    });
-    g_inputs = inputs;
-    // console.log(g_inputs);
+        $(temp).each(function()
+        {
+            inputs.push($(this)[0]);
+        });
+        g_inputs = inputs;
+        // console.log(g_inputs);
     
-});
-
-    $(hhrgbox).change(function()
-    {
-        if(this.checked)
-        {
-            filterhide("shrg");
-            filterhide("jhrg");
-        }
-
-        else
-        {
-            filtershow("shrg");
-            filtershow("jhrg");
-        }
     });
-
-    $(shrgbox).change(function()
-    {
-        if(this.checked)
-        {
-            filterhide("hhrg");
-            filterhide("jhrg");
-        }
-
-        else
-        {
-            filtershow("hhrg");
-            filtershow("jhrg");
-        }
-    });
-    $(jhrgbox).change(function()
-    {
-        if(this.checked)
-        {
-            filterhide("hhrg");
-            filterhide("shrg");
-        }
-
-        else
-        {
-            filtershow("hhrg");
-            filtershow("shrg");
-        }
-    });
-    
-    // //To get Current Date in toDate input box for Date range search
-    // $("#toDate").val(getCurrentDate());
 
     $("#final").on("click",function()
     {
         // console.log(unique(result));
-        JSONToCSVConvertor(unique(result),"Output",true);
+        if (result.length < 1){
+            alert("No records selected. Please select records and retry.");
+        }else{
+            JSONToCSVConvertor(unique(result),"Output",true);
+        }
 
     });
-
-
-    // $(dRange).on("click",function(){
-    //     alert("HI")
-    //     if(this.checked)
-    //     {
-    //         alert("HI");
-    //         $("#fromDate").prop( "disabled", false ); 
-    //         $("#toDate").prop( "disabled", false );    
-    //     }
-    //     else
-    //     {
-    //         filterD="";
-    //         $("#fromDate").prop( "disabled", true ); 
-    //         $("#toDate").prop( "disabled", true ); 
-    //     }
-    // });
 
 });//End of Document Ready
 
@@ -275,24 +211,20 @@ function submit_task(){
     //authentication requiremed to submit task
     if(!$('#myTab').is(':visible')){
         set_auth(base_url,login_url);
-        //$("#myTab").show();
-        //$('#user').show();
-        //load_task_history(user_task_url);
     }
 
 
     //Check query and set query string and query_type
     checked_value=$('input[name=optradio]:checked').val()
     if (checked_value=="0"){
-            query = "{'query':{'query_string':{'query':'" + searchterm + "'}},'aggs':{'hearings_count':{'cardinality':{'field':'TAG'}}}}"
             query_type = "QueryString"
     }else if (checked_value=="1"){
-            query = "{'query':{'match':{'DATA':{'query':'" + searchterm + "','operator':'and'}}},'aggs':{'hearings_count':{'cardinality':{'field':'TAG'}}}}"
             query_type = "Match"
     }else{
-           query ="{'query':{'match_phrase':{'DATA':{'query':'" + searchterm + "','type':'phrase'}}},'aggs':{'hearings_count':{'cardinality':{'field':'TAG'}}}}"
            query_type = "MatchPhrase"
     }
+    //get query from standard query generation
+    query= getParameterByName('query',get_search_url(searchterm))
     //Check user input of context lines above and below
      if ($('#contextlines').val()==""){
         $('#contextlines').val(5)
@@ -330,59 +262,45 @@ $.postJSON = function(url, data, callback,fail) {
         }
     });
 }; 
-
-function search(term){
+function get_search_url(term){
     checked_value=$('input[name=optradio]:checked').val()
-        if($("#dRange").prop('checked'))
+    if($("#dRange").prop('checked'))
+    {
+        fromDate = $("#fromDate").val();
+        toDate = $("#toDate").val();
+        if(isValidDate(fromDate) && isValidDate(toDate))
         {
-            fromDate = $("#fromDate").val();
-            toDate = $("#toDate").val();
-            if(isValidDate(fromDate) && isValidDate(toDate))
-            {
-            rangeDate="'range':{'DATE':{'lte':'"+toDate+"','gte':'"+fromDate+"'}}";
-            filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{"+rangeDate+"}}}"
-            }
-            else
-            {
-                alert("Please make sure dateformat is in -- [yyyy-mm-dd] OR [yyyy]");
-                alert("Search will be resumed with out Date range search!!")
-                $("#fromDate").val("");
-                $("#toDate").val("");
-                $("dRange").trigger('click');
-            }
+        rangeDate="'range':{'DATE':{'lte':'"+toDate+"','gte':'"+fromDate+"'}}";
+        filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{"+rangeDate+"}}}"
         }
         else
         {
-            filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{}}}"
+            alert("Please make sure dateformat is in -- [yyyy-mm-dd] OR [yyyy]");
+            alert("Search will be resumed with out Date range search!!")
+            $("#fromDate").val("");
+            $("#toDate").val("");
+            $("dRange").trigger('click');
         }
-
-    // //Get the filtered value
-    // filter_check_value=$('input[name=fradio]:checked').val()
-    // if(filter_check_value=="3")
-    // {
-    //     term=term+" AND (CHAMBER:HOUSE)";
-    // }
-    // else if(filter_check_value=="4")
-    // {
-    //     term=term+" AND (CHAMBER:SENATE)"
-    // }
-
-    // else if(filter_check_value=="5")
-    // {
-    //     term=term+" AND (CHAMBER:JOINT)"
-    // }
-
-    //console.log(term)
+    }
+    else
+    {
+        filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{}}}"
+    }
+    //set url
     if (checked_value=="0"){
-        url = base_url + "/es/data/congressional/hearings/.json?query={'query':{'query_string':{'query':'" + term 
+        url = base_url + "/es/data/congressional/hearings/.json?query={'query':{'query_string':{'query':'" + term
         url = url + "'}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'TAG'}}}}"
     }else if (checked_value=="1"){
-        url = base_url + "/es/data/congressional/hearings/.json?query={'query':{'match':{'DATA':{'query':'" + term 
+        url = base_url + "/es/data/congressional/hearings/.json?query={'query':{'match':{'DATA':{'query':'" + term
         url = url + "','operator':'and'}}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'TAG'}}}}"
     }else{
-        url = base_url + "/es/data/congressional/hearings/.json?query={'query':{'match_phrase':{'DATA':{'query':'" + term 
+        url = base_url + "/es/data/congressional/hearings/.json?query={'query':{'match_phrase':{'DATA':{'query':'" + term
         url = url + "','type':'phrase'}}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'TAG'}}}}"
     }
+    return url
+}
+function search(term){
+    url = get_search_url(term)
      //need to add a user element to assign the lines above and below
      if ($('#contextlines').val()==""){
         $('#contextlines').val(5)
@@ -448,10 +366,6 @@ function content_lines(val,lines,templ,html){
 	$("#" + html).append(templ({"PAGE":"page"+page,"LINK":"https://gpo.gov/fdsys/pkg/"+val._source.TAG+"/html/"+val._source.TAG+".htm","TAG":val._source.TAG,"DATA":temp_data,"TITLE":val._source.TITLE,"DATE":val._source.DATE}))
         $("#" + html).highlight($('#search').val().replace(/\"/g," ").trim().split(" "));
 
-        //For saving previous filters on next page
-        // if($(hhrgbox).prop('checked')){$(hhrgbox).trigger('click');$(hhrgbox).trigger('click');}
-        // if($(shrgbox).prop('checked')){$(shrgbox).trigger('click');$(shrgbox).trigger('click');}
-        // if($(jhrgbox).prop('checked')){$(jhrgbox).trigger('click');$(jhrgbox).trigger('click');}
         if($(sall).prop('checked')){$(sall).trigger('click');$(sall).trigger('click');}
         //This has to be here because you can not put event when item has not been placed on the page
         $('.csv').on("click",function(){
@@ -513,10 +427,6 @@ function submit_user(){
         $('#reset_password').click(function(){$('#pass_form').toggle(!$('#pass_form').is(':visible'));});
     })
     .fail(function(){ alert("Error Occured on User Update.")});
-    //$('#user_form').hide()
-    //$('#view_form').show()
-    //var formData = JSON.parse($("#user_form").serializeArray());
-    //console.log(formData);
     return false;
 }
 function edit_user(){
@@ -559,9 +469,6 @@ function set_auth(base_url,login_url){
         $('.login_menu').show()
     })
     .fail(function() {
-        //$('#login-modal').modal("show")
-        //var slink = login_url.concat(document.URL);
-        //window.location = slink
         $('.login_menu').hide()
         console.log("login required")
     });
@@ -840,5 +747,15 @@ function getCurrentDate()
 {
     return new Date().toISOString().slice(0,10);
 }
-
+function getParameterByName(name, url) {
+    if (!url) {
+      url = window.location.href;
+    }
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
 
