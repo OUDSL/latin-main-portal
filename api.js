@@ -11,7 +11,7 @@ $(function() {
     fromDate="";toDate="";filterD="";templateFilter="";result=[];f = [];
     output=[];guest=true;
     //check auth
-    set_auth(base_url,login_url);
+    //set_auth(base_url,login_url);
     $("#aprofile").click(function(){activaTab('profile')})
     $("#alogout").click(function(){window.location = logout_url.concat(document.URL);})
     //load_task_history(user_task_url);
@@ -316,6 +316,9 @@ function search(term){
         url_param = "&page="+ page + "&page_size=" + page_size
     }
      $.getJSON( url + url_param ,function(data){
+       if(data.hits.total==0){
+            $('.page-content').text( "NO SEARCH RESULTS FOUND");
+       }else{
         //Set up pagination 
         if (page==0){
             total_pages=Math.ceil(data.hits.total/page_size)
@@ -346,6 +349,7 @@ function search(term){
         if(!guest){
             $('#stats').show();
         }
+      }
      });
 }
 function content_lines(val,lines,templ,html){
