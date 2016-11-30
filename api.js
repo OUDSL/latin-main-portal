@@ -8,7 +8,7 @@ $(function() {
     user_url = base_url + "/user/?format=json";
     prevlink=null;nextlink=null;page=0;page_size=50;searchterm="";total_pages=0;
     //filter options and Date Range variables
-    fromDate="";toDate="";filterD="";templateFilter="";result=[];f = [];
+    fromDate="";toDate="";filterD="";templateFilter="";result=[];f = [];d=[];
     output=[];guest=true;
     //check auth
     set_auth(base_url,login_url);
@@ -37,7 +37,7 @@ $(function() {
             templateFilter = "{'match': {'CHAMBER':{'query':'HOUSE'}}}";
             f.push(templateFilter);
             console.log(f);
-            filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{}}}"
+            filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{},'must_not':[{}]}}"
         }
         else
         {
@@ -49,7 +49,7 @@ $(function() {
             {templateFilter = "{'match': {'CHAMBER':{'query':'SENATE'}}}";
             f.push(templateFilter);
             console.log(f);
-            filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{}}}"
+            filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{},'must_not':[{}]}}"
         }
         else
         {
@@ -63,7 +63,7 @@ $(function() {
                 templateFilter = "{'match': {'CHAMBER':{'query':'JOINT'}}}";
                 f.push(templateFilter);
                 console.log(f)
-                filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{}}}"
+                filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{},'must_not':[{}]}}"
             }    
             else
             {
@@ -90,6 +90,17 @@ $(function() {
                 filterD="";
                 $("#fromDate").prop( "disabled", true ); 
                 $("#toDate").prop( "disabled", true ); 
+            }
+        });
+    $("#sW").change(function()
+        {
+            if(this.checked)
+            {
+                $("#sWords").prop("disabled",false);
+            }
+            else
+            {
+                $("#sWords").prop("disabled",true);
             }
         });
     $(sall).on("click",function()
@@ -271,7 +282,7 @@ function get_search_url(term){
         if(isValidDate(fromDate) && isValidDate(toDate))
         {
         rangeDate="'range':{'DATE':{'lte':'"+toDate+"','gte':'"+fromDate+"'}}";
-        filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{"+rangeDate+"}}}"
+        filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{"+rangeDate+"},'must_not':["+d+"]}}"
         }
         else
         {
@@ -284,8 +295,57 @@ function get_search_url(term){
     }
     else
     {
-        filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{}}}"
+        rangeDate="";
+        filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{"+rangeDate+"},'must_not':["+d+"]}}"
     }
+    if($("#sW").prop('checked'))
+    {
+        if($("#sWords").val()=="")
+        {
+            alert("Please check the input and Try again!!");
+            $("#sW").trigger("click");
+        }
+        else
+        {
+            if((checked_value=="1") || (checked_value=="2"))
+             {
+            if($("#sW").prop('checked'))
+                {
+                    d = $("#sWords").val().split(',');
+                    for(var i=0;i<d.length;i++)
+                    {
+                        d[i]="{'match': {'DATA':{'query':'"+$.trim(d[i])+"'}}}"
+                    }
+                        filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{"+rangeDate+"},'must_not':["+d+"]}}"
+                }
+        else
+        {
+            d=[];
+            filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{"+rangeDate+"},'must_not':["+d+"]}}"
+        }
+    }
+    else
+    {
+                if($("#sW").prop('checked'))
+        {
+                    d = $("#sWords").val().split(',');
+                    for(var i=0;i<d.length;i++)
+                    {
+                        term=term+" -"+$.trim(d[i]);
+                    }
+                    filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{"+rangeDate+"},'must_not':[]}}"
+        }
+        else
+        {
+            d=[];
+            filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{"+rangeDate+"},'must_not':["+d+"]}}"
+        }
+    }
+        }
+    }
+
+    
+
     //set url
     if (checked_value=="0"){
         url = base_url + "/es/data/congressional/hearings/.json?query={'query':{'query_string':{'query':'" + term
