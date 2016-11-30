@@ -376,6 +376,9 @@ function search(term){
         url_param = "&page="+ page + "&page_size=" + page_size
     }
      $.getJSON( url + url_param ,function(data){
+       if(data.hits.total==0){
+            $('.page-content').text( "NO SEARCH RESULTS FOUND");
+       }else{
         //Set up pagination 
         if (page==0){
             total_pages=Math.ceil(data.hits.total/page_size)
@@ -406,6 +409,7 @@ function search(term){
         if(!guest){
             $('#stats').show();
         }
+      }
      });
 }
 function content_lines(val,lines,templ,html){
@@ -510,7 +514,7 @@ function set_password(){
 }
 function set_auth(base_url,login_url){
     $.getJSON( base_url + "/user/.json",function(data){
-        data.gravator_url=data.gravator_url.replace('http','https')
+        data.gravator_url=data.gravator_url
         $('#user').html(data['username'].concat( ' <span class="caret"></span> '));
         $("#user").append($('<img style="border-radius:80px;">').attr("src",data['gravator_url'] +"?s=40&d=mm") );
         data.csrftoken = getCookie('csrftoken')
@@ -540,8 +544,8 @@ function load_task_history(url){
     $.getJSON(url, function(data){
     prevlink = data.previous;
     nextlink = data.next;
-    if (prevlink == null){$('#li_prevlink').addClass("disabled");} else {$('#li_prevlink').removeClass("disabled");prevlink=data.previous.replace('http','https');};
-    if (nextlink == null){$('#li_nextlink').addClass("disabled");} else {$('#li_nextlink').removeClass("disabled");nextlink=data.next.replace('http','https');};
+    if (prevlink == null){$('#li_prevlink').addClass("disabled");} else {$('#li_prevlink').removeClass("disabled");prevlink=data.previous;};
+    if (nextlink == null){$('#li_nextlink').addClass("disabled");} else {$('#li_nextlink').removeClass("disabled");nextlink=data.next;};
     setTaskDisplay(data);
     //source = $('#tr-template').html();
     //tr_template = Handlebars.compile(source);
@@ -551,7 +555,7 @@ function load_task_history(url){
         temp=item.task_name.split('.')
         item['task_name']= temp[temp.length-1]
         item.timestamp = item.timestamp.substring(0,19).replace('T',' ')
-        item.result=item.result.replace('http','https')
+        item.result=item.result
         //console.log(item)
         $('#result_tbody_history').append(tr_template(item)) 
     });

@@ -155,3 +155,6 @@ a {
   opacity: 0.6;
   transition: opacity ease 0.5s;
 } 
+#dropdownMenu1 {
+    float: right;
+}
