@@ -412,6 +412,27 @@ function search(term){
       }
      });
 }
+function get_section(ids,val){
+    url = base_url + "/es/data/congressional/hearings/.json?esaction=mget&ids="+ ids
+    $.getJSON( url ,function(data){
+        pre_data ="";
+        post_data="";
+        $.each(data.docs,function(i,v){
+
+        if(v.found && v._source.TAG == val._source.TAG){
+                if (v._id < val._id){
+                    pre_data=pre_data + v._source.DATA + "  ";
+                }
+                if (v._id > val._id){
+                    post_data=post_data + v._source.DATA + "  ";
+                }
+                //temp_data= temp_data + v._source.DATA + "  ";
+            }
+
+        });
+        console.log(temp_data);
+    });
+}
 function content_lines(val,lines,templ,html){
      lowEnd= parseInt(val._id) - lines;
      highEnd = parseInt(val._id) + lines;
@@ -420,15 +441,26 @@ function content_lines(val,lines,templ,html){
      ids= list.join(",")
      url = base_url + "/es/data/congressional/hearings/.json?esaction=mget&ids="+ ids
      $.getJSON( url ,function(data){
-        temp_data = ""
+        temp_data = "";
+        pre_data ="";
+        post_data="";
 	$.each(data.docs,function(i,v){
 	    if(v.found && v._source.TAG == val._source.TAG){
+                if (v._id < val._id){
+                    pre_data=pre_data + v._source.DATA + "  ";
+                }
+                if (v._id > val._id){
+                    post_data=post_data + v._source.DATA + "  ";
+                }
 	    	temp_data= temp_data + v._source.DATA + "  ";
 	    }
 
 	});
-	$("#" + html).append(templ({"PAGE":"page"+page,"LINK":"https://gpo.gov/fdsys/pkg/"+val._source.TAG+"/html/"+val._source.TAG+".htm","TAG":val._source.TAG,"DATA":temp_data,"TITLE":val._source.TITLE,"DATE":val._source.DATE}))
-        $("#" + html).highlight($('#search').val().replace(/\"/g," ").trim().split(" "));
+        console.log(pre_data);
+        console.log(val._source.DATA);
+        console.log(post_data);
+	$("#" + html).append(templ({"PAGE":"page"+page,"LINK":"https://gpo.gov/fdsys/pkg/"+val._source.TAG+"/html/"+val._source.TAG+".htm","TAG":val._source.TAG,"PRE_DATA":pre_data,"DATA":val._source.DATA +" ","POST_DATA":post_data,"TITLE":val._source.TITLE,"DATE":val._source.DATE}))
+        $(".es_value_data").highlight($('#search').val().replace(/\"/g," ").trim().split(" "));
 
         if($(sall).prop('checked')){$(sall).trigger('click');$(sall).trigger('click');}
         //This has to be here because you can not put event when item has not been placed on the page
