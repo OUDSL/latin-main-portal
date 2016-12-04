@@ -343,6 +343,10 @@ function get_search_url(term){
     }
         }
     }
+    else
+        {
+            filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{"+rangeDate+"},'must_not':[{}]}}"
+        }
 
     
 
