@@ -103,6 +103,12 @@ $(function() {
                 $("#sWords").prop("disabled",true);
             }
         });
+
+    $("#cS").on("click",function()
+        {
+            location.reload();
+        });
+
     $(sall).on("click",function()
     {
         $(".csv").prop('checked', $(this).prop('checked'));
