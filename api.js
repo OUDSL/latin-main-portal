@@ -290,6 +290,8 @@ $.postJSON = function(url, data, callback,fail) {
 }; 
 function get_search_url(term){
     checked_value=$('input[name=optradio]:checked').val()
+    if($(".dateRange").is(":visible"))
+    {
     if($("#dRange").prop('checked'))
     {
         fromDate = $("#fromDate").val();
@@ -362,6 +364,11 @@ function get_search_url(term){
         {
             filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{"+rangeDate+"},'must_not':[{}]}}"
         }
+        }
+    else
+    {
+        filterD=""
+    }
 
     
 
