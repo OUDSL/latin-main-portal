@@ -227,7 +227,7 @@ function load_es_data(){
         $('#gstat').unbind( "click" );
         $('#gstat').click(function(){submit_task();});
     });
-    $("#search").keyup(function(event){
+    $(".searchOnEnter").keyup(function(event){
         if(event.keyCode == 13){
             $("#submitSearch").click();
         }

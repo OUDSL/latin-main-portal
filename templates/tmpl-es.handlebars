@@ -1,7 +1,7 @@
 <div>
 <div class="form-inline" style="margin-bottom:5px">
 <label class="control-label" for="ssearch">Search</label>
-<input type="text" class="form-control" name="ssearch" id="search" style="min-width:50%;max-width:60%"><label class="control-label" for="cline">Context Lines</label><input type="number" id="contextlines" name="cline" class="form-control bfh-number" min="0" max="10" value=5 style="width:80px">
+<input type="text" class="form-control searchOnEnter" name="ssearch" id="search" style="min-width:50%;max-width:60%"><label class="control-label" for="cline">Context Lines</label><input type="number" id="contextlines" name="cline" class="form-control bfh-number searchOnEnter" min="0" max="10" value=5 style="width:80px">
 <button class="btn btn-primary" id="submitSearch">Search</button>
 </div>
 <div class="form-control" style="margin-bottom:30px;">
@@ -19,10 +19,10 @@
     				<span class="input-group-addon"><input id="dRange" type="checkbox" value="dRange" style="padding-right: 5px;" ><label style="padding-left: 12px;">DATE RANGE: </label></span>
                     <input type="text" id="fromDate" class="form-control" value="" placeholder="yyyy-mm-dd or yyyy">
                     <span class="input-group-addon">to</span>
-                    <input type="text" id="toDate" class="form-control" value="" placeholder="yyyy-mm-dd or yyyy">
+                    <input type="text" id="toDate" class="form-control searchOnEnter" value="" placeholder="yyyy-mm-dd or yyyy">
                   </div>
     <div class="input-group input-daterange dateRange" style="display: none;">
-            <span class="input-group-addon"><input id="sW" type="checkbox" value="" style="padding-right: 5px;" ><label style="padding-left: 12px;">STOP WORDS: </label></span>
+            <span class="input-group-addon"><input id="sW" class="searchOnEnter" type="checkbox" value="" style="padding-right: 5px;" ><label style="padding-left: 12px;">STOP WORDS: </label></span>
                     <input type="text" id="sWords" class="form-control" value="" placeholder="India,China" disabled>
                   </div>
 

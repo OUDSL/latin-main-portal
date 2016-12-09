@@ -158,3 +158,11 @@ a {
 #dropdownMenu1 {
     float: right;
 }
+#contextlines {
+    margin-right:5px;
+    margin-left:5px;
+}
+#search {
+    margin-right:5px;
+}
+
