@@ -109,6 +109,15 @@ $(function() {
             location.reload();
         });
 
+    $('#sWords').keypress(function (e) {
+     var key = e.which;
+     if(key == 13)  // the enter key code
+      {
+        $('#submitSearch').click();
+        return false;  
+      }
+});
+
     $(sall).on("click",function()
     {
         $(".csv").prop('checked', $(this).prop('checked'));
