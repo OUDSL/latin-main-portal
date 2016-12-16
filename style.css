@@ -1,8 +1,13 @@
 body {background-color:#ebebeb;}
-.menutop {
+.nav-menu-top {
+    margin-left: 80px;
+}
+/*
+#user{
     padding-top: 10px;
     padding-bottom: 10px;
 }
+*/
 .nav-tabs {
     margin-bottom: -1px;
 }
