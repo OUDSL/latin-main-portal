@@ -29,7 +29,17 @@ $(function() {
     $('#myTab').hide()
     load_es_data();
 
+    $("#ahelp").on("click",function()
+    {
+        $("#helpModel").modal('show');
 
+    });
+
+    $("#aabout").on("click",function()
+    {
+        $("#aboutModel").modal('show');
+
+    });
     $("#hf").change(function()
         {
         if(this.checked)
