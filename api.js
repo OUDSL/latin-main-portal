@@ -175,32 +175,35 @@ $(function() {
     var g_data=[];
     var g_inputs=[];
     $("#sall").click(function () {
-        var tags = $("tr td.tag");
-        var tag = [];
-        var data= [];
-        var inputs = [];
+        if (this.checked){
+            var tags = $("tr td.tag");
+            var tag = [];
+            var data= [];
+            var inputs = [];
 
-        $(tags).each(function()
-        {
-            tag.push($(this).text().trim());
-        });
-        g_tag = tag;
-        // console.log(tag);
+            $(tags).each(function()
+            {
+                tag.push($(this).text().trim());
+            });
+            g_tag = tag;
+            // console.log(tag);
 
-        $("tr td.data").each(function()
-        {
-            data.push($(this).text().trim());
-        });
-        g_data = data;
-        var temp = $(".csv");
+            $("tr td.data").each(function()
+            {
+                data.push($(this).text().trim());
+            });
+            g_data = data;
+            var temp = $(".csv");
 
-        $(temp).each(function()
-        {
-            inputs.push($(this)[0]);
-        });
-        g_inputs = inputs;
-        // console.log(g_inputs);
-    
+            $(temp).each(function()
+            {
+                inputs.push($(this)[0]);
+            });
+            g_inputs = inputs;
+            // console.log(g_inputs);
+        }else{
+            result=[]
+        }
     });
 
     $("#final").on("click",function()
@@ -753,7 +756,7 @@ function filterhide(input)
         var CSV = '';
         //Set Report title in first row or line
 
-        CSV += ReportTitle + '\r\n\n';
+        //CSV += ReportTitle + '\r\n\n';
 
         //This condition will generate the Label/Header
         if (ShowLabel) {
