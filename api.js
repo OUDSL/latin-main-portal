@@ -46,7 +46,7 @@ $(function() {
         {
             templateFilter = "{'match': {'CHAMBER':{'query':'HOUSE'}}}";
             f.push(templateFilter);
-            console.log(f);
+            //console.log(f);
             filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{},'must_not':[{}]}}"
         }
         else
@@ -58,7 +58,7 @@ $(function() {
             if(this.checked)
             {templateFilter = "{'match': {'CHAMBER':{'query':'SENATE'}}}";
             f.push(templateFilter);
-            console.log(f);
+            //console.log(f);
             filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{},'must_not':[{}]}}"
         }
         else
@@ -72,7 +72,7 @@ $(function() {
             {
                 templateFilter = "{'match': {'CHAMBER':{'query':'JOINT'}}}";
                 f.push(templateFilter);
-                console.log(f)
+                //console.log(f)
                 filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{},'must_not':[{}]}}"
             }    
             else
@@ -274,7 +274,7 @@ function submit_task(){
     task_name = "dslq.tasks.tasks.search_main_stats"
     params = ["congressional","hearings",query]
     task_data = {"function": task_name,"queue": "celery","args":params,"kwargs":{"context_pages":lines_above_below},"tags":["query="+ searchterm,"query-type=" + query_type ]};
-    console.log("fired")
+    //console.log("fired")
     //Submit task and set result url and load current history with latest task.
     $.postJSON(url,task_data,function(data){
             $('#stat_result').html(data.result_url);
@@ -466,7 +466,7 @@ function get_section(ids,val){
             }
 
         });
-        console.log(temp_data);
+        //console.log(temp_data);
     });
 }
 function content_lines(val,lines,templ,html){
@@ -492,9 +492,9 @@ function content_lines(val,lines,templ,html){
 	    }
 
 	});
-        console.log(pre_data);
-        console.log(val._source.DATA);
-        console.log(post_data);
+        //console.log(pre_data);
+        //console.log(val._source.DATA);
+        //console.log(post_data);
 	$("#" + html).append(templ({"PAGE":"page"+page,"LINK":"https://gpo.gov/fdsys/pkg/"+val._source.TAG+"/html/"+val._source.TAG+".htm","TAG":val._source.TAG,"PRE_DATA":pre_data,"DATA":val._source.DATA +" ","POST_DATA":post_data,"TITLE":val._source.TITLE,"DATE":val._source.DATE}))
         $(".es_value_data").highlight($('#search').val().replace(/\"/g," ").trim().split(" "));
 
@@ -546,7 +546,7 @@ function content_lines(val,lines,templ,html){
      });
 }
 function submit_user(){
-    console.log(user_url)
+    //console.log(user_url)
     $.post( user_url,$('#user_form').serializeObject(),function(data){
         data.csrftoken = getCookie('csrftoken')
         $('#profile').empty();
@@ -602,7 +602,7 @@ function set_auth(base_url,login_url){
     })
     .fail(function() {
         $('.login_menu').hide()
-        console.log("login required")
+        //console.log("login required")
     });
 }
 function activaTab(tab){
