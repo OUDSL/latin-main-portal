@@ -1,6 +1,6 @@
 $(function() {
     //Customize by setting base_url to cybercom/api docker application
-    base_url = "https://dev.libraries.ou.edu/api-dsl";
+    base_url = "https://cc.lib.ou.edu/api-dsl";
     //No other alterations is need to get the standard applicaiton running!
     login_url = base_url + "/api-auth/login/?next=";
     logout_url = base_url + "/api-auth/logout/?next=";
@@ -659,7 +659,7 @@ function showResult(url){
 
 function showMetaResult(tag){
     //myModalLabel -->title
-    url="https://dev.libraries.ou.edu/api-dsl/data_store/data/congressional/hearings/.json?query={'filter':{'TAG':'"+tag+"'}}"
+    url= base_url + "/data_store/data/congressional/hearings/.json?query={'filter':{'TAG':'"+tag+"'}}"
     $.getJSON(url, function(data){
         json_data = JSON.stringify(data.results[0],null, 4);
         $("#myMetabody").empty();
@@ -674,7 +674,8 @@ jQuery.fn.urlize = function() {
         this.each(function(i, obj){
             // making links active
             var x = $(obj).html();
-            var list = x.match( /\b(http:\/\/|www\.|http:\/\/www\.)[^ <]{2,200}\b/g );
+            //var list = x.match( /\b(http:\/\/|www\.|http:\/\/www\.)[^ <]{2,200}\b/g );
+	    var list = x.match( /\b(http:\/\/|https:\/\/www\.|http:\/\/www\.)[^ <]{2,200}\b/g );
             if (list) {
                 for ( i = 0; i < list.length; i++ ) {
                     var prot = list[i].indexOf('http://') === 0 || list[i].indexOf('https://') === 0 ? '' : 'http://';
