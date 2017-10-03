@@ -436,7 +436,7 @@ function search(term){
                     tot_ret = data.hits.total
                     hear_total = data.aggregations.hearings_count.value
                     if ( hear_total > tot_ret ){hear_total = tot_ret;}
-                    $('.page-content').text( "Search Results: " + tot_ret.toString() + "  Total Hearings:  " +  hear_total.toString() + ' --- Page ' + page_num + ' of ' + total_pages);
+                    $('.page-content').text( "Search Results: " + tot_ret.toString() + "  Total Hits:  " +  hear_total.toString() + ' --- Page ' + page_num + ' of ' + total_pages);
                 }
             });
             page=1;
@@ -452,7 +452,7 @@ function search(term){
      });
 }
 function get_section(ids,val){
-    url = base_url + "/es/data/congressional/hearings/.json?esaction=mget&ids="+ ids
+    url = base_url + "/es/data/latin/library/.json?esaction=mget&ids="+ ids
     $.getJSON( url ,function(data){
         pre_data ="";
         post_data="";
