@@ -388,13 +388,13 @@ function get_search_url(term){
     //set url
     if (checked_value=="0"){
         url = base_url + "/es/data/latin/library/.json?query={'query':{'query_string':{'query':'" + term
-        url = url + "'}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'TAG'}}}}"
+        url = url + "'}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'filename'}}}}"
     }else if (checked_value=="1"){
-        url = base_url + "/es/data/latin/library/.json?query={'query':{'match':{'DATA':{'query':'" + term
-        url = url + "','operator':'and'}}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'TAG'}}}}"
+        url = base_url + "/es/data/latin/library/.json?query={'query':{'match':{'sentence':{'query':'" + term
+        url = url + "','operator':'and'}}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'filename'}}}}"
     }else{
-        url = base_url + "/es/data/latin/library/.json?query={'query':{'match_phrase':{'DATA':{'query':'" + term
-        url = url + "','type':'phrase'}}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'TAG'}}}}"
+        url = base_url + "/es/data/latin/library/.json?query={'query':{'match_phrase':{'sentence':{'query':'" + term
+        url = url + "','type':'phrase'}}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'filename'}}}}"
     }
     return url
 }
