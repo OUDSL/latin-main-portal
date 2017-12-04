@@ -426,7 +426,7 @@ function search(term){
                 visiblePages: 15,
                 onPageClick: function (event, page_num) {
                     page=page_num;
-                    if (page_num !=1){
+                    if (page_num !=0){
                         if ($(".page"+page).length==0){
                             search(searchterm);
                         }
