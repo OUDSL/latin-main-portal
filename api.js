@@ -216,7 +216,10 @@ $(function() {
         }
 
     });
-
+    //Disable filters
+    $('#hf').prop( "disabled", true );
+    $('#sf').prop( "disabled", true );
+    $('#jf').prop( "disabled", true );
 });//End of Document Ready
 
 function load_es_data(){
