@@ -396,7 +396,7 @@ function get_search_url(term){
         url = base_url + "/es/data/latin/library/.json?query={'query':{'match':{'sentence':{'query':'" + term
         url = url + "','operator':'and'}}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'filename'}}}}"
     }else{
-        url = base_url + "/es/data/latin/library/.json?query={'query':{'match_phrase':{'sentence':{'query':'" + term
+        url = base_url + "/es/data/latin/library/.json?query={'query':{'match_phrase':{'title':{'query':'" + term
         url = url + "','type':'phrase'}}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'filename'}}}}"
     }
     return url
@@ -506,7 +506,7 @@ function content_lines(val,lines,templ,html){
         val.POST_DATA = post_data
         $("#" + html).append(templ(val));
 	//$("#" + html).append(templ({"PAGE":"page"+page,"LINK":val._source.url,"TAG":val._source.filename,"PRE_DATA":pre_data,"DATA":val._source.sentence +" ","POST_DATA":post_data,"TITLE":val._source.title,"DATE":val._source.familiar_name}))
-        $(".es_value_data").highlight($('#search').val().replace(/\"/g," ").trim().split(" "));
+        $(".es_value_data").highlight($('#search').val().replace(/\"/g," ").replace(/\*/g," ").trim().split(" "));
 
         if($(sall).prop('checked')){$(sall).trigger('click');$(sall).trigger('click');}
         //This has to be here because you can not put event when item has not been placed on the page
