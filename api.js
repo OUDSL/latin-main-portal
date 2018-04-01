@@ -22,7 +22,7 @@ $(function() {
                     return JSON.stringify(context).replace(/\\/g,'').replace(/\[/g,'').replace(/\]/g,'').replace(/,/g,', ');
                 }else{
                     return ""
-                } 
+                }
     });
     $('#user').click(function(){if($('#user').html()=="Login"){window.location = login_url.concat(document.URL);}});
     //$('#user').hide()
@@ -44,62 +44,62 @@ $(function() {
         {
         if(this.checked)
         {
-            templateFilter = "{'match': {'CHAMBER':{'query':'HOUSE'}}}";
+            templateFilter = "{'match': {'CHAMBER':{'query':'AUTHOR'}}}";
             f.push(templateFilter);
             //console.log(f);
             filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{},'must_not':[{}]}}"
         }
         else
         {
-            f = removeElement(f,"{'match': {'CHAMBER':{'query':'HOUSE'}}}");
+            f = removeElement(f,"{'match': {'CHAMBER':{'query':'AUTHOR'}}}");
         }});
     $("#sf").click(function()
         {
             if(this.checked)
-            {templateFilter = "{'match': {'CHAMBER':{'query':'SENATE'}}}";
+            {templateFilter = "{'match': {'CHAMBER':{'query':'FAMILIAR NAME'}}}";
             f.push(templateFilter);
             //console.log(f);
             filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{},'must_not':[{}]}}"
         }
         else
         {
-            f = removeElement(f,"{'match': {'CHAMBER':{'query':'SENATE'}}}");
+            f = removeElement(f,"{'match': {'CHAMBER':{'query':'FAMILIAR NAME'}}}");
         }
         });
     $("#jf").click(function()
         {
             if(this.checked)
             {
-                templateFilter = "{'match': {'CHAMBER':{'query':'JOINT'}}}";
+                templateFilter = "{'match': {'CHAMBER':{'query':'ERA'}}}";
                 f.push(templateFilter);
                 //console.log(f)
                 filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{},'must_not':[{}]}}"
-            }    
+            }
             else
             {
-                f = removeElement(f,"{'match': {'CHAMBER':{'query':'JOINT'}}}");
+                f = removeElement(f,"{'match': {'CHAMBER':{'query':'ERA'}}}");
             }
         });
     $("#advS").click(function()
         {
             $(".checkbox").toggle();
             $(".dateRange").toggle();
-            //$("#fromDate").prop( "disabled", true ); 
-            //$("#toDate").prop( "disabled", true ); 
+            //$("#fromDate").prop( "disabled", true );
+            //$("#toDate").prop( "disabled", true );
         });
 
     $("#dRange").change(function()
         {
             if(this.checked)
             {
-                $("#fromDate").prop( "disabled", false ); 
-                $("#toDate").prop( "disabled", false );    
+                $("#fromDate").prop( "disabled", false );
+                $("#toDate").prop( "disabled", false );
             }
             else
             {
                 filterD="";
-                $("#fromDate").prop( "disabled", true ); 
-                $("#toDate").prop( "disabled", true ); 
+                $("#fromDate").prop( "disabled", true );
+                $("#toDate").prop( "disabled", true );
             }
         });
     $("#sW").change(function()
@@ -124,7 +124,7 @@ $(function() {
      if(key == 13)  // the enter key code
       {
         $('#submitSearch').click();
-        return false;  
+        return false;
       }
 });
 
@@ -170,7 +170,7 @@ $(function() {
             result.push({tag:output[i].tag,data:output[i].data});
         }
     });
-   
+
     var g_tag=[];
     var g_data=[];
     var g_inputs=[];
@@ -216,7 +216,10 @@ $(function() {
         }
 
     });
-
+    //Disable filters
+    $('#hf').prop( "disabled", true );
+    $('#sf').prop( "disabled", true );
+    $('#jf').prop( "disabled", true );
 });//End of Document Ready
 
 function load_es_data(){
@@ -273,7 +276,7 @@ function submit_task(){
      }
     //url to submit task
     url = base_url + "/queue/run/dslq.tasks.tasks.search_main_stats/"
-    //Set task Data to submit 
+    //Set task Data to submit
     task_name = "dslq.tasks.tasks.search_main_stats"
     params = ["congressional","hearings",query]
     task_data = {"function": task_name,"queue": "celery","args":params,"kwargs":{"context_pages":lines_above_below},"tags":["query="+ searchterm,"query-type=" + query_type ]};
@@ -300,7 +303,7 @@ $.postJSON = function(url, data, callback,fail) {
             xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
         }
     });
-}; 
+};
 function get_search_url(term){
     checked_value=$('input[name=optradio]:checked').val()
     if($(".dateRange").is(":visible"))
@@ -383,18 +386,18 @@ function get_search_url(term){
         filterD=""
     }
 
-    
+
 
     //set url
     if (checked_value=="0"){
-        url = base_url + "/es/data/congressional/hearings/.json?query={'query':{'query_string':{'query':'" + term
-        url = url + "'}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'TAG'}}}}"
+        url = base_url + "/es/data/latin/library/.json?query={'query':{'query_string':{'query':'" + term
+        url = url + "'}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'filename'}}}}"
     }else if (checked_value=="1"){
-        url = base_url + "/es/data/congressional/hearings/.json?query={'query':{'match':{'DATA':{'query':'" + term
-        url = url + "','operator':'and'}}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'TAG'}}}}"
+        url = base_url + "/es/data/latin/library/.json?query={'query':{'match':{'sentence':{'query':'" + term
+        url = url + "','operator':'and'}}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'filename'}}}}"
     }else{
-        url = base_url + "/es/data/congressional/hearings/.json?query={'query':{'match_phrase':{'DATA':{'query':'" + term
-        url = url + "','type':'phrase'}}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'TAG'}}}}"
+        url = base_url + "/es/data/latin/library/.json?query={'query':{'match_phrase':{'title':{'query':'" + term
+        url = url + "','type':'phrase'}}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'filename'}}}}"
     }
     return url
 }
@@ -418,7 +421,7 @@ function search(term){
        if(data.hits.total==0){
             $('.page-content').text( "NO SEARCH RESULTS FOUND");
        }else{
-        //Set up pagination 
+        //Set up pagination
         if (page==0){
             total_pages=Math.ceil(data.hits.total/page_size)
             $('.sync-pagination').twbsPagination({
@@ -426,7 +429,7 @@ function search(term){
                 visiblePages: 15,
                 onPageClick: function (event, page_num) {
                     page=page_num;
-                    if (page_num !=1){
+                    if (page_num !=0){
                         if ($(".page"+page).length==0){
                             search(searchterm);
                         }
@@ -436,14 +439,14 @@ function search(term){
                     tot_ret = data.hits.total
                     hear_total = data.aggregations.hearings_count.value
                     if ( hear_total > tot_ret ){hear_total = tot_ret;}
-                    $('.page-content').text( "Search Results: " + tot_ret.toString() + "  Total Hearings:  " +  hear_total.toString() + ' --- Page ' + page_num + ' of ' + total_pages);
+                    $('.page-content').text( "Search Results: " + tot_ret.toString() + "  Total Hits:  " +  hear_total.toString() + ' texts ' + ' Page ' + page_num + ' of ' + total_pages);
                 }
             });
             page=1;
         }
         tr_tmpl=Handlebars.templates['tmpl-tres']
         $.each(data.hits.hits,function(itm,val){
-	   content_lines(val,lines_above_below,tr_tmpl,"result_tbody",page) 
+	   content_lines(val,lines_above_below,tr_tmpl,"result_tbody",page)
         });
         if(!guest){
             $('#stats').show();
@@ -451,8 +454,8 @@ function search(term){
       }
      });
 }
-function get_section(ids,val){
-    url = base_url + "/es/data/congressional/hearings/.json?esaction=mget&ids="+ ids
+/*function get_section(ids,val){
+    url = base_url + "/es/data/latin/library/.json?esaction=mget&ids="+ ids
     $.getJSON( url ,function(data){
         pre_data ="";
         post_data="";
@@ -471,35 +474,39 @@ function get_section(ids,val){
         });
         //console.log(temp_data);
     });
-}
+}*/
 function content_lines(val,lines,templ,html){
      lowEnd= parseInt(val._id) - lines;
      highEnd = parseInt(val._id) + lines;
      list = [];
      for (var i=lowEnd;i<=highEnd;i++){list.push(i);}
      ids= list.join(",")
-     url = base_url + "/es/data/congressional/hearings/.json?esaction=mget&ids="+ ids
+     url = base_url + "/es/data/latin/library/.json?esaction=mget&ids="+ ids
      $.getJSON( url ,function(data){
         temp_data = "";
         pre_data ="";
         post_data="";
 	$.each(data.docs,function(i,v){
-	    if(v.found && v._source.TAG == val._source.TAG){
+	    if(v.found && v._source.filename == val._source.filename){
                 if (v._id < val._id){
-                    pre_data=pre_data + v._source.DATA + "  ";
+                    pre_data=pre_data + v._source.sentence + "  ";
                 }
                 if (v._id > val._id){
-                    post_data=post_data + v._source.DATA + "  ";
+                    post_data=post_data + v._source.sentence + "  ";
                 }
-	    	temp_data= temp_data + v._source.DATA + "  ";
+	    	temp_data= temp_data + v._source.sentence + "  ";
 	    }
 
 	});
         //console.log(pre_data);
         //console.log(val._source.DATA);
         //console.log(post_data);
-	$("#" + html).append(templ({"PAGE":"page"+page,"LINK":"https://gpo.gov/fdsys/pkg/"+val._source.TAG+"/html/"+val._source.TAG+".htm","TAG":val._source.TAG,"PRE_DATA":pre_data,"DATA":val._source.DATA +" ","POST_DATA":post_data,"TITLE":val._source.TITLE,"DATE":val._source.DATE}))
-        $(".es_value_data").highlight($('#search').val().replace(/\"/g," ").trim().split(" "));
+        val=val._source
+        val.PRE_DATA=  pre_data
+        val.POST_DATA = post_data
+        $("#" + html).append(templ(val));
+	//$("#" + html).append(templ({"PAGE":"page"+page,"LINK":val._source.url,"TAG":val._source.filename,"PRE_DATA":pre_data,"DATA":val._source.sentence +" ","POST_DATA":post_data,"TITLE":val._source.title,"DATE":val._source.familiar_name}))
+        $(".es_value_data").highlight($('#search').val().replace(/\"/g," ").replace(/\*/g," ").trim().split(" "));
 
         if($(sall).prop('checked')){$(sall).trigger('click');$(sall).trigger('click');}
         //This has to be here because you can not put event when item has not been placed on the page
@@ -594,7 +601,7 @@ function set_auth(base_url,login_url){
         user_template = Handlebars.templates['tmpl-user']
         $('#profile').append(user_template(data))
         $('#user_form').hide()
-        $('#view_form').show() 
+        $('#view_form').show()
         $('#reset_password').click(function(){$('#pass_form').toggle(!$('#pass_form').is(':visible'));});
         //load task history
         load_task_history(user_task_url);
@@ -628,7 +635,7 @@ function load_task_history(url){
         item.timestamp = item.timestamp.substring(0,19).replace('T',' ')
         item.result=item.result
         //console.log(item)
-        $('#result_tbody_history').append(tr_template(item)) 
+        $('#result_tbody_history').append(tr_template(item))
     });
     });
 }
@@ -642,7 +649,7 @@ function setTaskDisplay(data){
             rec_end = data.count;
         }else{
             rec_end = data.meta.page_size*data.meta.page;
-        }   
+        }
         $('#task_count').text('Task ' + rec_start + ' - ' + rec_end  +  ' Total ' + data.count )
     }
 
@@ -659,7 +666,7 @@ function showResult(url){
 
 function showMetaResult(tag){
     //myModalLabel -->title
-    url= base_url + "/data_store/data/congressional/hearings/.json?query={'filter':{'TAG':'"+tag+"'}}"
+    url= base_url + "/data_store/data/latin/library/.json?query={'filter':{'TAG':'"+tag+"'}}"
     $.getJSON(url, function(data){
         json_data = JSON.stringify(data.results[0],null, 4);
         $("#myMetabody").empty();
@@ -894,4 +901,3 @@ function getParameterByName(name, url) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
-

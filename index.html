@@ -10,9 +10,31 @@
     <link rel="stylesheet" href="bower_components/ou_css/OULib_Bootswatch_Full.css">
     <!--<link rel="stylesheet" href="bower_components/boostrap_style/flatly/bootstrap.min.css">-->
     <link rel="stylesheet" href="style.css">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" type="text/css" media="all" href="ou-global-header.css" />
 </head>
-<body style="padding:5px;">
-<nav class="navbar navbar-default">
+
+<div class="globalheader">
+ <div class="globalheader-wrapper">
+    <ul>
+        <li><a class="tip home" href="http://www.ou.edu/web.html" alt="OU Home link"><span>OU Homepage</span></a></li>
+        <li><a class="tip search" href="http://www.ou.edu/content/ousearch.html" alt="OU Search link"><span>Search OU</span></a></li>
+        <li><a class="tip social" href="http://www.ou.edu/web/socialmediadirectory.html" alt="OU Social Media link"><span>OU Social Media</span></a></li>
+        <li class="wordmark">The University of Oklahoma</li>
+    </ul>
+    <div style="clear:both;"></div>
+ </div>
+</div>
+
+<body style=" font-family: Arial, Helvetica, sans-serif">
+
+
+
+
+<!-- Latin Search Navbar -->
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -22,7 +44,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" id="cS" href="#">U.S. Congressional Hearings Search Engine</a>
+      <a class="navbar-brand" id="cS" href="#">Latin Search Engine</a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -72,7 +94,7 @@
             </nav>
         </div>
         <div role="tabpanel" class="tab-pane fade" id="profile">
-            
+
         </div>
     </div>
 </div>
@@ -86,10 +108,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title" id="myMetaLabel">Hearing Metadata</h3>
+        <h3 class="modal-title" id="myMetaLabel">Latin Text Metadata</h3>
       </div>
       <div class="modal-body">
-        <pre id="myMetabody"></pre> 
+        <pre id="myMetabody"></pre>
       </div>
       <div class="modal-footer">
       </div>
@@ -137,13 +159,14 @@
         <h3 class="modal-title" id="myModalLabel">Task Result</h3>
       </div>
       <div class="modal-body">
-        <pre id="myModalbody"></pre> 
+        <pre id="myModalbody"></pre>
       </div>
       <div class="modal-footer">
       </div>
     </div>
   </div>
 </div>
+<img src="http://desk-customers.s3.amazonaws.com/ou/logo.png" alt="logo" style="width:210px;height:50px;" align="right"/>
 <!-- End Model -->
 <!-- Modal login
 <a href="#" data-toggle="modal" data-target="#login-modal">Login</a>-->
@@ -157,7 +180,7 @@
                     <input type="password" name="pass" placeholder="Password">
                     <input type="submit" name="login" class="login loginmodal-submit" value="Login">
                   </form>
-                    
+
                   <div class="login-help">
                     <a href="#">Register</a> - <a href="#">Forgot Password</a>
                   </div>
@@ -173,5 +196,3 @@
 <script src="api.js"></script>
 <script src="templates.js"></script>
 </html>
-
-

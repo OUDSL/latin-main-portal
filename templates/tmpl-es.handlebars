@@ -11,30 +11,25 @@
     <label class="radio-inline" style="padding-right:2px"></label><label class="radio-inline" style="padding-left:0px;"><button class="btn btn-sm btn-primary" id="advS" style="padding:2px 6px;" type="button">Filter Options</button></label>
     <label class="radio-inline" style="padding-right:2px"></label></label>
     <div class="checkbox" style="display: none;">
-    <label class="radio-inline"><input type="checkbox" class="optradio" id="hf" name="fradio" value="3">FILTER HOUSE</label>
-    <label class="radio-inline"><input type="checkbox" class="optradio" id="sf" name="fradio" value="4">FILTER SENATE</label>
-    <label class="radio-inline"><input type="checkbox" class="optradio" id="jf" name="fradio" value="5">FILTER JOINT</label>
+    <label class="radio-inline"><input type="checkbox" class="optradio" id="hf" name="fradio" value="3">FILTER BY: ERA</label>
+    <label class="radio-inline"><input type="checkbox" class="optradio" id="sf" name="fradio" value="4">FILTER BY: AUTHOR</label>
+    <label class="radio-inline"><input type="checkbox" class="optradio" id="jf" name="fradio" value="5">FILTER BY: FAMILIAR NAME</label>
     </div></div>
     <div class="input-group input-daterange dateRange" style="display: none;">
-    				<span class="input-group-addon"><input id="dRange" type="checkbox" value="dRange" style="padding-right: 5px;" ><label style="padding-left: 12px;">DATE RANGE: </label></span>
-                    <input type="text" id="fromDate" class="form-control" value="" placeholder="yyyy-mm-dd or yyyy">
-                    <span class="input-group-addon">to</span>
-                    <input type="text" id="toDate" class="form-control searchOnEnter" value="" placeholder="yyyy-mm-dd or yyyy">
-                  </div>
-    <div class="input-group input-daterange dateRange" style="display: none;">
             <span class="input-group-addon"><input id="sW" class="searchOnEnter" type="checkbox" value="" style="padding-right: 5px;" ><label style="padding-left: 12px;">STOP WORDS: </label></span>
-                    <input type="text" id="sWords" class="form-control" value="" placeholder="India,China" disabled>
+                    <input type="text" id="sWords" class="form-control" value="" placeholder="Arma,Armorum" disabled>
                   </div>
 
 <div id="paginate-div" style="text-align:center"></div>
 <a id="final" href="#" style="float:right">Save to CSV</a>
 <table class="table table-striped table-bordered table-condensed table-hover" id='estable'>
               <tr>
-                  <th>TAG</th>
-                  <th>DATA</th>
-                  <th>TITLE</th>
-                  <th>DATE</th>
-                  <th>SELECT <input id="sall" type="checkbox" value="sall"></th>
+                  <th>Title</th>
+                  <th>Sentence</th>
+                  <th>Author</th>
+                  <th>Era</th>
+                  <th>Familiar Name</th>
+                  <th>Select <input id="sall" type="checkbox" value="sall"></th>
               </tr>
               <tr id="stats" style="display:none">
                 <th colspan="3"><div id='stat_result'></div></th>
