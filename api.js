@@ -255,7 +255,7 @@ function submit_task(){
         set_auth(base_url,login_url);
     }
 
-
+    //Check query and set query string and query_type
     //Check query and set query string and query_type
     checked_value=$('input[name=optradio]:checked').val()
     if (checked_value=="0"){
