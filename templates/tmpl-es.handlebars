@@ -2,18 +2,20 @@
 <div class="form-inline" style="margin-bottom:5px">
 <label class="control-label" for="ssearch">Search</label>
 <input type="text" class="form-control searchOnEnter" name="ssearch" id="search" style="min-width:50%;max-width:60%"><label class="control-label" for="cline">Context Lines</label><input type="number" id="contextlines" name="cline" class="form-control bfh-number searchOnEnter" min="0" max="10" value=5 style="width:80px">
-<button class="btn btn-primary" id="submitSearch">Search</button>
+<button class="btn btn-primary" id="submitSearch">Search <img src="search.png" width="15" height="15"></button>
 </div>
 <div class="form-control" style="margin-bottom:30px;">
-     <label class="radio-inline"><input type="radio" class="optradio" name="optradio" value="0" checked><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#query-string-syntax" target="_blank">Query String</a></label>
+    <label class="radio-inline"><input type="radio" class="optradio" name="optradio" value="0" checked><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#query-string-syntax" target="_blank">Query String</a></label>
     <label class="radio-inline"><input type="radio" class="optradio" name="optradio" value="1"><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html" target="_blank">Match (AND)</a></label>
     <label class="radio-inline"><input type="radio" class="optradio" name="optradio" value="2"><a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/phrase-matching.html"target="_blank">Match Phrase</a></label>
     <label class="radio-inline" style="padding-right:2px"></label><label class="radio-inline" style="padding-left:0px;"><button class="btn btn-sm btn-primary" id="advS" style="padding:2px 6px;" type="button">Filter Options</button></label>
     <label class="radio-inline" style="padding-right:2px"></label></label>
     <div class="checkbox">
-    <label ><input type="checkbox"  id="3box" name="fradio" value="3">FILTER BY: ERA</label>
-    <label ><input type="checkbox"  id="4box" name="fradio" value="4">FILTER BY: AUTHOR</label>
-    <label ><input type="checkbox"  id="5box" name="fradio" value="5">FILTER BY: FAMILIAR NAME</label>
+    <label ><input type="checkbox"  id="1box" name="fradio" value="1"><strong>FILTER BY: </strong>TITLE</label>
+    <label ><input type="checkbox"  id="2box" name="fradio" value="2">SENTENCE</label>
+    <label ><input type="checkbox"  id="hhrgbox" name="fradio" value="hhrg">ERA</label>
+    <label ><input type="checkbox"  id="shrgbox" name="fradio" value="shrg">AUTHOR</label>
+    <label ><input type="checkbox"  id="jhrgbox" name="fradio" value="jhrg">FAMILIAR NAME</label>
     </div>
 </div>
     <div class="input-group input-daterange dateRange" style="display: none;">

@@ -396,7 +396,7 @@ function get_search_url(term){
         url = base_url + "/es/data/latin/library/.json?query={'query':{'match':{'sentence':{'query':'" + term
         url = url + "','operator':'and'}}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'filename'}}}}"
     }else{
-        url = base_url + "/es/data/latin/library/.json?query={'query':{'match_phrase':{'title':{'query':'" + term
+        url = base_url + "/es/data/latin/library/.json?query={'query':{'match_phrase':{'sentence':{'query':'" + term
         url = url + "','type':'phrase'}}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'filename'}}}}"
     }
     return url
