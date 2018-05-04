@@ -8,7 +8,7 @@ $(function() {
     user_url = base_url + "/user/?format=json";
     prevlink=null;nextlink=null;page=0;page_size=50;searchterm="";total_pages=0;
     //filter options and Date Range variables
-    fromDate="";toDate="";filterD="";templateFilter="";result=[];f = [];d=[];
+    fromDate="";toDate="";filterD="";templateFilter="";result=[];f = [];d=[];filterbox=""
     output=[];guest=true;
     //check auth
     set_auth(base_url,login_url);
@@ -40,44 +40,50 @@ $(function() {
         $("#aboutModel").modal('show');
 
     });
-    $("#hf").change(function()
+    $("#hf").click(function()
         {
         if(this.checked)
         {
-            templateFilter = "{'match': {'CHAMBER':{'query':'AUTHOR'}}}";
+            templateFilter = "{'match': {'author':{'query':"+term+"}}}";
             f.push(templateFilter);
             //console.log(f);
             filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{},'must_not':[{}]}}"
+            filterbox = 'author: '
         }
         else
         {
-            f = removeElement(f,"{'match': {'CHAMBER':{'query':'AUTHOR'}}}");
+            f = removeElement(f,"{'match': {'author':{'query':"+term+"}}}");
+            filterbox = ''
         }});
     $("#sf").click(function()
         {
             if(this.checked)
-            {templateFilter = "{'match': {'CHAMBER':{'query':'FAMILIAR NAME'}}}";
+            {templateFilter = "{'match': {'era':{'query':"+term+"}}}";
             f.push(templateFilter);
             //console.log(f);
             filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{},'must_not':[{}]}}"
+            filterbox = 'era: '
         }
         else
         {
-            f = removeElement(f,"{'match': {'CHAMBER':{'query':'FAMILIAR NAME'}}}");
+            f = removeElement(f,"{'match': {'era':{'query':"+term+"}}}");
+            filterbox = ''
         }
         });
     $("#jf").click(function()
         {
             if(this.checked)
             {
-                templateFilter = "{'match': {'CHAMBER':{'query':'ERA'}}}";
+                templateFilter = "{'match': {'familiar_name':{'query':"+term+"}}}";
                 f.push(templateFilter);
                 //console.log(f)
                 filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{},'must_not':[{}]}}"
+                filterbox = 'familiar_name: '
             }
             else
             {
-                f = removeElement(f,"{'match': {'CHAMBER':{'query':'ERA'}}}");
+                f = removeElement(f,"{'match': {'familiar_name':{'query':"+term+"}}}");
+                filterbox = ''
             }
         });
     $("#advS").click(function()
@@ -256,7 +262,6 @@ function submit_task(){
     }
 
     //Check query and set query string and query_type
-    //Check query and set query string and query_type
     checked_value=$('input[name=optradio]:checked').val()
     if (checked_value=="0"){
             query_type = "QueryString"
@@ -390,7 +395,7 @@ function get_search_url(term){
 
     //set url
     if (checked_value=="0"){
-        url = base_url + "/es/data/latin/library/.json?query={'query':{'query_string':{'query':'" + term
+        url = base_url + "/es/data/latin/library/.json?query={'query':{'query_string':{'query':"+filterD+"'" + term
         url = url + "'}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'filename'}}}}"
     }else if (checked_value=="1"){
         url = base_url + "/es/data/latin/library/.json?query={'query':{'match':{'sentence':{'query':'" + term
