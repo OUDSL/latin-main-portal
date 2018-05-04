@@ -40,7 +40,33 @@ $(function() {
         $("#aboutModel").modal('show');
 
     });
-    $("#hf").click(function()
+    $("#title").click(function()
+        {
+        if(this.checked)
+        {
+            templateFilter = "{'match': {'title':{'query':"+searchterm+"}}}";
+            f.push(templateFilter);
+            //console.log(f);
+            filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{},'must_not':[{}]}}"
+        }
+        else
+        {
+            f = removeElement(f,"{'match': {'title':{'query':"+searchterm+"}}}");
+        }});
+    $("#sentence").click(function()
+        {
+        if(this.checked)
+        {
+            templateFilter = "{'match': {'sentence':{'query':"+term+"}}}";
+            f.push(templateFilter);
+            //console.log(f);
+            filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{},'must_not':[{}]}}"
+        }
+        else
+        {
+            f = removeElement(f,"{'match': {'sentence':{'query':"+term+"}}}");
+        }});
+    $("#author").click(function()
         {
         if(this.checked)
         {
@@ -48,29 +74,25 @@ $(function() {
             f.push(templateFilter);
             //console.log(f);
             filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{},'must_not':[{}]}}"
-            filterbox = 'author: '
         }
         else
         {
             f = removeElement(f,"{'match': {'author':{'query':"+term+"}}}");
-            filterbox = ''
         }});
-    $("#sf").click(function()
+    $("#era").click(function()
         {
             if(this.checked)
             {templateFilter = "{'match': {'era':{'query':"+term+"}}}";
             f.push(templateFilter);
             //console.log(f);
             filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{},'must_not':[{}]}}"
-            filterbox = 'era: '
         }
         else
         {
             f = removeElement(f,"{'match': {'era':{'query':"+term+"}}}");
-            filterbox = ''
         }
         });
-    $("#jf").click(function()
+    $("#familiar_name").click(function()
         {
             if(this.checked)
             {
@@ -78,12 +100,10 @@ $(function() {
                 f.push(templateFilter);
                 //console.log(f)
                 filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{},'must_not':[{}]}}"
-                filterbox = 'familiar_name: '
             }
             else
             {
                 f = removeElement(f,"{'match': {'familiar_name':{'query':"+term+"}}}");
-                filterbox = ''
             }
         });
     $("#advS").click(function()
@@ -223,9 +243,11 @@ $(function() {
 
     });
     //Disable filters
-    $('#hf').prop( "disabled", true );
-    $('#sf').prop( "disabled", true );
-    $('#jf').prop( "disabled", true );
+    $('#title').prop( "enabled", true );
+    $('#sentence').prop( "enabled", true );
+    $('#author').prop( "enabled", true );
+    $('#era').prop( "enabled", true );
+    $('#familiar_name').prop( "enabled", true );
 });//End of Document Ready
 
 function load_es_data(){
