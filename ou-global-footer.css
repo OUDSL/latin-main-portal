@@ -1,0 +1,108 @@
+.footer {
+    background-image:url("bg_black.gif");
+    background-repeat:repeat;
+    background-color:#333333;
+    color:#ffffff;
+    padding:-1px;
+}
+.footer .row-fluid { margin:2em auto; }
+
+.footer a:link,
+.footer a:visited {
+    color:#FFF;
+}
+.footer a:hover{
+    text-decoration:underline;
+}
+.footer .gc-cs-link {
+    color:#999999 !important;
+    text-decoration:none !important;
+}
+.footer .footerBottom { border-top:1px solid #474747; padding-top:-10px; }
+
+/* social icons */
+
+.footer #footer_social_icons {
+	overflow:auto;
+    padding:0;
+    margin:0;
+}
+.footer #footer_social_icons .text { overflow:auto; }
+.footer #footer_social_icons .text p { padding:0; margin:0; }
+.footer #footer_social_icons h1,
+.footer #footer_social_icons h2,
+.footer #footer_social_icons h3 {
+    color: #ffffff;
+    font-size: 100%;
+    padding: 0;
+	margin: 0 0 5px;
+    line-height: normal;
+    text-transform: none;
+    width:186px;  /* accomodates 3 icons and the more arrow icon */
+}
+.footer #footer_social_icons ul {
+    padding:0;
+    margin:0;
+    overflow:auto;
+    width:186px;  /* accomodates 3 icons and the more arrow icon */
+    list-style-type:none;
+}
+.footer #footer_social_icons ul li {
+	float:left;
+	display:block;
+}
+.footer #footer_social_icons ul li a {
+    display:block;
+    width: 46px;
+    height: 46px;
+    margin: 0;
+    padding: 0;
+    text-indent: -9999px;
+    background-image: url('footer_social_icons.png');
+}
+.footer #footer_social_icons ul a.facebook { background-position: 0 0; }
+.footer #footer_social_icons ul a.facebook:hover { background-position: -46px 0; }
+
+.footer #footer_social_icons ul a.twitter { background-position: 0 -46px; }
+.footer #footer_social_icons ul a.twitter:hover { background-position: -46px -46px; }
+
+.footer #footer_social_icons ul a.youtube { background-position: 0 -92px; }
+.footer #footer_social_icons ul a.youtube:hover { background-position: -46px -92px; }
+
+.footer #footer_social_icons ul a.instagram { background-position: 0 -138px; }
+.footer #footer_social_icons ul a.instagram:hover { background-position: -46px -138px; }
+
+.footer #footer_social_icons ul a.linkedin { background-position: 0 -184px; }
+.footer #footer_social_icons ul a.linkedin:hover { background-position: -46px -184px; }
+
+.footer #footer_social_icons ul a.googleplus { background-position: 0 -230px; }
+.footer #footer_social_icons ul a.googleplus:hover { background-position: -46px -230px; }
+
+.footer #footer_social_icons ul a.pinterest { background-position: 0 -276px; }
+.footer #footer_social_icons ul a.pinterest:hover { background-position: -46px -276px; }
+
+.footer #footer_social_icons ul a.foursquare { background-position: 0 -322px; }
+.footer #footer_social_icons ul a.foursquare:hover { background-position: -46px -322px; }
+
+.footer #footer_social_icons ul a.more { background-position: 0 -368px; }
+.footer #footer_social_icons ul a.more:hover { background-position: -46px -368px; }
+
+.footer #footer_social_icons .extra-wide ul,
+.footer #footer_social_icons .extra-wide h1,
+.footer #footer_social_icons .extra-wide h2,
+.footer #footer_social_icons .extra-wide h3 {
+    width:278px; /* accomodates 5 icons and the more arrow icon */
+}
+
+.footer #footer_social_icons .wide ul,
+.footer #footer_social_icons .wide h1,
+.footer #footer_social_icons .wide h2,
+.footer #footer_social_icons .wide h3 {
+	width:232px; /* accomodates 4 icons and the more arrow icon */
+}
+.footer #footer_social_icons .narrow ul,
+.footer #footer_social_icons .narrow h1,
+.footer #footer_social_icons .narrow h2,
+.footer #footer_social_icons .narrow h3 {
+	width:140px; /* accomodates 2 icons and the more arrow icon */
+}

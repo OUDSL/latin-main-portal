@@ -43,7 +43,7 @@ body { padding:0; margin:0; }
 .globalheader ul li a.home,
 .globalheader ul li a.search,
 .globalheader ul li a.social {
-    display:block; 
+    display:block;
     height:30px;
     width:30px;
 }
@@ -72,11 +72,11 @@ body { padding:0; margin:0; }
 a.tip { position:relative; }
 a.tip span { display: none; }
 /* the span will display just on :hover state */
-a.tip:hover span { 
+a.tip:hover span {
     position:absolute;
     z-index:25;
-    top:135%; 
-    left:-3.75em;  
+    top:135%;
+    left:-3.75em;
     width:10em;
     display:block;
     margin:0;
@@ -105,4 +105,3 @@ a.tip:hover span::before {
     height:9px;
     position:absolute;
 }
-
