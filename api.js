@@ -47,7 +47,7 @@ $(function() {
         console.log(searchterm)
         if(this.checked)
         {
-            templateFilter = "{'match': {'title':{'query':"+term+"}}}";
+            templateFilter = "{'match': {'title':{'query':'"+term+"'}}}";
             console.log(templateFilter)
             f.push(templateFilter);
             //console.log(f);
@@ -57,7 +57,7 @@ $(function() {
         }
         else
         {
-            f = removeElement(f,"{'match': {'title':{'query':'title:'"+term+"}}}");
+            f = removeElement(f,"{'match': {'title':{'query':'"+term+"'}}}");
             console.log(f)
         }});
     $("#sentence").click(function()
@@ -67,7 +67,7 @@ $(function() {
         console.log(searchterm)
         if(this.checked)
         {
-            templateFilter = "{'match': {'sentence':{'query':"+term+"}}}";
+            templateFilter = "{'match': {'sentence':{'query':'"+term+"'}}}";
             console.log(templateFilter)
             f.push(templateFilter);
             //console.log(f);
@@ -77,7 +77,7 @@ $(function() {
         }
         else
         {
-            f = removeElement(f,"{'match': {'sentence':{'query':"+term+"}}}");
+            f = removeElement(f,"{'match': {'sentence':{'query':'"+term+"'}}}");
             console.log(f)
         }});
     $("#author").click(function()
@@ -104,7 +104,7 @@ $(function() {
         {
         if(this.checked)
         {
-            templateFilter = "{'match': {'era':{'query':"+term+"}}}";
+            templateFilter = "{'match': {'era':{'query':'"+term+"'}}}";
             console.log(templateFilter)
             f.push(templateFilter);
             //console.log(f);
@@ -112,14 +112,14 @@ $(function() {
         }
         else
         {
-            f = removeElement(f,"{'match': {'era':{'query':"+term+"}}}");
+            f = removeElement(f,"{'match': {'era':{'query':'"+term+"'}}}");
         }
         });
     $("#familiar_name").click(function()
         {
             if(this.checked)
             {
-                templateFilter = "{'match': {'familiar_name':{'query':"+term+"}}}";
+                templateFilter = "{'match': {'familiar_name':{'query':'"+term+"'}}}";
                 console.log(templateFilter)
                 f.push(templateFilter);
                 //console.log(f)
@@ -127,7 +127,7 @@ $(function() {
             }
             else
             {
-                f = removeElement(f,"{'match': {'familiar_name':{'query':"+term+"}}}");
+                f = removeElement(f,"{'match': {'familiar_name':{'query':'"+term+"'}}}");
             }
         });
     $("#advS").click(function()
