@@ -5,13 +5,13 @@
 <button class="btn btn-primary" id="submitSearch">Search <img src="search.png" width="15" height="15"></button>
 </div>
 <div class="form-control" style="margin-bottom:30px;">
-    <label class="radio-inline"><input type="radio" class="optradio" name="optradio" value="0" checked><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#query-string-syntax" target="_blank">Query String</a></label>
-    <label class="radio-inline"><input type="radio" class="optradio" name="optradio" value="1"><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html" target="_blank">Match (AND)</a></label>
-    <label class="radio-inline"><input type="radio" class="optradio" name="optradio" value="2"><a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/phrase-matching.html"target="_blank">Match Phrase</a></label>
+    <label class="radio-inline"><input type="radio" class="optradio" name="optradio" value="0" checked>QUERY STRING <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#query-string-syntax" target="_blank"><img src="question.png" width="20" height="20"></a></label>
+    <label class="radio-inline"><input type="radio" class="optradio" name="optradio" value="1">MATCH(AND) <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html" target="_blank"><img src="question.png" width="20" height="20"></a></label>
+    <label class="radio-inline"><input type="radio" class="optradio" name="optradio" value="2">MATCH PHRASE <a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/phrase-matching.html"target="_blank"><img src="question.png" width="20" height="20"></a></label>
     <label class="radio-inline" style="padding-right:2px"></label><label class="radio-inline" style="padding-left:0px;"><button class="btn btn-sm btn-primary" id="advS" style="padding:2px 6px;" type="button">Filter Options</button></label>
     <label class="radio-inline" style="padding-right:2px"></label></label>
-    <div class="checkbox">
-    <label type="text"><strong>FILTER BY: </strong></label>
+    <div class="checkbox" style="display: none;">
+    <label type="text"><strong>SEARCH WITHIN COLUMN: </strong></label>
     <label class="radio-inline"><input type="checkbox"  id="title" name="fradio" value="1">TITLE</label>
     <label class="radio-inline"><input type="checkbox"  id="sentence" name="fradio" value="2">SENTENCE</label>
     <label class="radio-inline"><input type="checkbox"  id="author" name="fradio" value="3">AUTHOR</label>

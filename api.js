@@ -40,70 +40,94 @@ $(function() {
         $("#aboutModel").modal('show');
 
     });
-    $("#title").click(function()
+    $("#title").change(function()
         {
+        term = $('#search').val();
+        console.log(term)
+        console.log(searchterm)
         if(this.checked)
         {
-            templateFilter = "{'match': {'title':{'query':"+searchterm+"}}}";
+            templateFilter = "{'match': {'title':{'query':'"+term+"'}}}";
+            console.log(templateFilter)
             f.push(templateFilter);
             //console.log(f);
             filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{},'must_not':[{}]}}"
+            console.log(filterD)
+            console.log(f)
         }
         else
         {
-            f = removeElement(f,"{'match': {'title':{'query':"+searchterm+"}}}");
+            f = removeElement(f,"{'match': {'title':{'query':'"+term+"'}}}");
+            console.log(f)
         }});
     $("#sentence").click(function()
         {
+        term = $('#search').val();
+        console.log(term)
+        console.log(searchterm)
         if(this.checked)
         {
-            templateFilter = "{'match': {'sentence':{'query':"+term+"}}}";
+            templateFilter = "{'match': {'sentence':{'query':'"+term+"'}}}";
+            console.log(templateFilter)
             f.push(templateFilter);
             //console.log(f);
             filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{},'must_not':[{}]}}"
+            console.log(filterD)
+            console.log(f)
         }
         else
         {
-            f = removeElement(f,"{'match': {'sentence':{'query':"+term+"}}}");
+            f = removeElement(f,"{'match': {'sentence':{'query':'"+term+"'}}}");
+            console.log(f)
         }});
     $("#author").click(function()
         {
+        term = $('#search').val();
+        console.log(term)
+        console.log(searchterm)
         if(this.checked)
         {
-            templateFilter = "{'match': {'author':{'query':"+term+"}}}";
+            templateFilter = "{'match': {'author':{'query':'"+term+"'}}}";
+            console.log(templateFilter)
             f.push(templateFilter);
             //console.log(f);
             filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{},'must_not':[{}]}}"
+            console.log(filterD)
+            console.log(f)
         }
         else
         {
-            f = removeElement(f,"{'match': {'author':{'query':"+term+"}}}");
+            f = removeElement(f,"{'match': {'author':{'query':'"+term+"'}}}");
+            console.log(f)
         }});
     $("#era").click(function()
         {
-            if(this.checked)
-            {templateFilter = "{'match': {'era':{'query':"+term+"}}}";
+        if(this.checked)
+        {
+            templateFilter = "{'match': {'era':{'query':'"+term+"'}}}";
+            console.log(templateFilter)
             f.push(templateFilter);
             //console.log(f);
             filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{},'must_not':[{}]}}"
         }
         else
         {
-            f = removeElement(f,"{'match': {'era':{'query':"+term+"}}}");
+            f = removeElement(f,"{'match': {'era':{'query':'"+term+"'}}}");
         }
         });
     $("#familiar_name").click(function()
         {
             if(this.checked)
             {
-                templateFilter = "{'match': {'familiar_name':{'query':"+term+"}}}";
+                templateFilter = "{'match': {'familiar_name':{'query':'"+term+"'}}}";
+                console.log(templateFilter)
                 f.push(templateFilter);
                 //console.log(f)
                 filterD=",'filter':{'bool' : {'should' :["+removeDups(f)+"],'must':{},'must_not':[{}]}}"
             }
             else
             {
-                f = removeElement(f,"{'match': {'familiar_name':{'query':"+term+"}}}");
+                f = removeElement(f,"{'match': {'familiar_name':{'query':'"+term+"'}}}");
             }
         });
     $("#advS").click(function()
@@ -417,7 +441,7 @@ function get_search_url(term){
 
     //set url
     if (checked_value=="0"){
-        url = base_url + "/es/data/latin/library/.json?query={'query':{'query_string':{'query':"+filterD+"'" + term
+        url = base_url + "/es/data/latin/library/.json?query={'query':{'query_string':{'query':'" + term // TODO remove duplicated filterD
         url = url + "'}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'filename'}}}}"
     }else if (checked_value=="1"){
         url = base_url + "/es/data/latin/library/.json?query={'query':{'match':{'sentence':{'query':'" + term
@@ -426,6 +450,19 @@ function get_search_url(term){
         url = base_url + "/es/data/latin/library/.json?query={'query':{'match_phrase':{'sentence':{'query':'" + term
         url = url + "','type':'phrase'}}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'filename'}}}}"
     }
+/*
+if (checked_value=="0"){
+        url = base_url + "/es/data/congressional/hearings/.json?query={'query':{'query_string':{'query':'" + term
+        url = url + "'}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'TAG'}}}}"
+    }else if (checked_value=="1"){
+        url = base_url + "/es/data/congressional/hearings/.json?query={'query':{'match':{'DATA':{'query':'" + term
+        url = url + "','operator':'and'}}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'TAG'}}}}"
+    }else{
+        url = base_url + "/es/data/congressional/hearings/.json?query={'query':{'match_phrase':{'DATA':{'query':'" + term
+        url = url + "','type':'phrase'}}}"+filterD+",'aggs':{'hearings_count':{'cardinality':{'field':'TAG'}}}}"
+        */
+
+    console.log(url)
     return url
 }
 function search(term){
